@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "RepFlow",
+    "slug": "repflow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "repflow",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sayid.repflow"
+    },
+    "android": {
+      "package": "com.sayid.repflow",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": ["expo-router", "expo-sqlite"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
