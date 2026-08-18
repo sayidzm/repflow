@@ -10,15 +10,16 @@ export function useRoutines() {
   const [error, setError] = useState<string | null>(null);
   const [reloadTrigger, setReloadTrigger] = useState(0);
 
-  let db: ReturnType<typeof useSQLiteContext> | null = null;
+  let dbContext: ReturnType<typeof useSQLiteContext> | null = null;
   try {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    db = useSQLiteContext();
+    dbContext = useSQLiteContext();
   } catch {
-    db = null;
+    // Allow fallback in test environment where SQLiteProvider may not be available
+    dbContext = null;
   }
 
-  const repository = useMemo(() => (db ? new RoutineRepository(db) : null), [db]);
+  const repository = useMemo(() => (dbContext ? new RoutineRepository(dbContext) : null), [dbContext]);
 
   const refresh = useCallback(() => {
     setReloadTrigger((prev) => prev + 1);
@@ -64,11 +65,20 @@ export function useRoutines() {
   const createRoutine = useCallback(
     async (input: CreateRoutineInput): Promise<Routine> => {
       if (!repository) {
-        throw new Error('Database connection unavailable');
+        const err = new Error('Database connection unavailable - SQLiteContext not initialized');
+        console.error('[useRoutines] createRoutine error:', err);
+        throw err;
       }
-      const created = await repository.create(input);
-      refresh();
-      return created;
+      try {
+        const created = await repository.create(input);
+        refresh();
+        return created;
+      } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : 'Failed to create routine';
+        setError(errorMsg);
+        console.error('[useRoutines] createRoutine database error:', err);
+        throw err;
+      }
     },
     [repository, refresh],
   );
@@ -76,11 +86,20 @@ export function useRoutines() {
   const updateRoutine = useCallback(
     async (id: string, input: UpdateRoutineInput): Promise<Routine> => {
       if (!repository) {
-        throw new Error('Database connection unavailable');
+        const err = new Error('Database connection unavailable - SQLiteContext not initialized');
+        console.error('[useRoutines] updateRoutine error:', err);
+        throw err;
       }
-      const updated = await repository.update(id, input);
-      refresh();
-      return updated;
+      try {
+        const updated = await repository.update(id, input);
+        refresh();
+        return updated;
+      } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : 'Failed to update routine';
+        setError(errorMsg);
+        console.error('[useRoutines] updateRoutine database error:', err);
+        throw err;
+      }
     },
     [repository, refresh],
   );
@@ -88,10 +107,19 @@ export function useRoutines() {
   const deleteRoutine = useCallback(
     async (id: string): Promise<void> => {
       if (!repository) {
-        throw new Error('Database connection unavailable');
+        const err = new Error('Database connection unavailable - SQLiteContext not initialized');
+        console.error('[useRoutines] deleteRoutine error:', err);
+        throw err;
       }
-      await repository.delete(id);
-      refresh();
+      try {
+        await repository.delete(id);
+        refresh();
+      } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : 'Failed to delete routine';
+        setError(errorMsg);
+        console.error('[useRoutines] deleteRoutine database error:', err);
+        throw err;
+      }
     },
     [repository, refresh],
   );

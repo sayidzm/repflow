@@ -50,15 +50,16 @@ function mapRecordToUIExercise(rec: WorkoutExerciseRecord): WorkoutExercise {
 }
 
 export function WorkoutDraftProvider({ children }: PropsWithChildren) {
-  let db: ReturnType<typeof useSQLiteContext> | null = null;
+  let dbContext: ReturnType<typeof useSQLiteContext> | null = null;
   try {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    db = useSQLiteContext();
+    dbContext = useSQLiteContext();
   } catch {
-    db = null;
+    // Allow fallback in test environment where SQLiteProvider may not be available
+    dbContext = null;
   }
 
-  const repository = useMemo(() => (db ? new WorkoutRepository(db) : null), [db]);
+  const repository = useMemo(() => (dbContext ? new WorkoutRepository(dbContext) : null), [dbContext]);
 
   const [activeWorkout, setActiveWorkout] = useState<Workout | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -362,9 +363,17 @@ export function WorkoutDraftProvider({ children }: PropsWithChildren) {
     }
 
     if (!activeWorkout) return null;
-    const finished = await repository.finishWorkout(activeWorkout.id);
-    setActiveWorkout(null);
-    return finished;
+    
+    try {
+      const finished = await repository.finishWorkout(activeWorkout.id);
+      setActiveWorkout(null);
+      return finished;
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Failed to finish workout';
+      setError(errorMsg);
+      console.error('[WorkoutDraftProvider] finishWorkout error:', err);
+      throw err;
+    }
   }, [repository, activeWorkout]);
 
   const discardWorkout = useCallback(async (): Promise<Workout | null> => {
@@ -375,9 +384,17 @@ export function WorkoutDraftProvider({ children }: PropsWithChildren) {
     }
 
     if (!activeWorkout) return null;
-    const discarded = await repository.discardWorkout(activeWorkout.id);
-    setActiveWorkout(null);
-    return discarded;
+    
+    try {
+      const discarded = await repository.discardWorkout(activeWorkout.id);
+      setActiveWorkout(null);
+      return discarded;
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Failed to discard workout';
+      setError(errorMsg);
+      console.error('[WorkoutDraftProvider] discardWorkout error:', err);
+      throw err;
+    }
   }, [repository, activeWorkout]);
 
   const clearDraft = useCallback(async (): Promise<void> => {
