@@ -1,50 +1,50 @@
 # Roadmap
 
-> Son güncelleme: 2026-08-18  
+> Son güncelleme: 2026-08-18
 > Kural: MVP sonrası maddeler kullanıcı onayı olmadan uygulanmaz.
 
 ## Phase 0 — Documentation and Scope Lock
 
 Durum: Completed
 
-- [x] Ürün gereksinimlerini belirle
-- [x] MVP kapsamını kesinleştir
-- [x] MVP dışı özellikleri listele
-- [x] Ekranları ve kullanıcı akışlarını belirle
-- [x] Veri modelini planla
-- [x] Teknik mimariyi belirle
-- [x] AI çalışma kurallarını yaz
-- [x] Memory Bank'i oluştur
+- [X] Ürün gereksinimlerini belirle
+- [X] MVP kapsamını kesinleştir
+- [X] MVP dışı özellikleri listele
+- [X] Ekranları ve kullanıcı akışlarını belirle
+- [X] Veri modelini planla
+- [X] Teknik mimariyi belirle
+- [X] AI çalışma kurallarını yaz
+- [X] Memory Bank'i oluştur
 
 ## Phase 1 — Project Foundation
 
-Durum: Planned
+Durum: Completed
 
-- [ ] Uygulama adı ve identifier kararını kesinleştir
-- [ ] Expo + TypeScript projesini oluştur
-- [ ] Expo Router iskeletini kur
-- [ ] Type-check, lint ve test komutlarını kur
-- [ ] Design token temelini oluştur
-- [ ] Minimum shared UI bileşenlerini oluştur
-- [ ] SQLite bootstrap ekle
-- [ ] Migration runner oluştur
-- [ ] İlk şema migration'ını oluştur
-- [ ] Feature-based klasör yapısını kur
+- [x] Uygulama adı ve identifier kararını kesinleştir
+- [x] Expo + TypeScript projesini oluştur
+- [x] Expo Router iskeletini kur
+- [x] Type-check, lint ve test komutlarını kur
+- [x] Design token temelini oluştur
+- [x] Minimum shared UI bileşenlerini oluştur
+- [x] SQLite bootstrap ekle
+- [x] Migration runner oluştur
+- [x] İlk şema migration'ını oluştur
+- [x] Feature-based klasör yapısını kur
 
 Çıkış kriteri: Uygulama açılır, route iskeleti çalışır, boş veritabanı migration'ları uygulanır ve temel kalite komutları geçer.
 
 ## Phase 2 — Exercise System
 
-Durum: Planned
+Durum: Completed
 
-- [ ] Kas grubu ve kategori domain değerlerini tanımla
-- [ ] Hazır egzersiz seed verisini ekle
-- [ ] Egzersiz repository'sini uygula
-- [ ] Egzersiz listesi
-- [ ] Arama ve filtreleme
-- [ ] Özel egzersiz oluşturma/düzenleme
-- [ ] Arşivleme
-- [ ] Unit, repository ve component testleri
+- [x] Kas grubu ve kategori domain değerlerini tanımla
+- [x] Hazır egzersiz seed verisini ekle
+- [x] Egzersiz repository'sini uygula
+- [x] Egzersiz listesi
+- [x] Arama ve filtreleme
+- [x] Özel egzersiz oluşturma/düzenleme
+- [x] Arşivleme
+- [x] Unit, repository ve component testleri
 
 Çıkış kriteri: Kullanıcı offline biçimde egzersiz arayabilir ve özel egzersiz yönetebilir; geçmiş bütünlüğü kuralları test edilir.
 

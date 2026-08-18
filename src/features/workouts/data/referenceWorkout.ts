@@ -6,10 +6,13 @@ export const referenceWorkout: WorkoutExercise[] = [
     name: 'Bench Press',
     muscleGroup: 'Chest',
     category: 'Barbell',
+    isCustom: false,
+    createdAt: 0,
+    updatedAt: 0,
     sets: [
-      { id: 'bench-1', weight: '62.5', reps: '8', isCompleted: true },
-      { id: 'bench-2', weight: '62.5', reps: '8', isCompleted: true },
-      { id: 'bench-3', weight: '62.5', reps: '8', isCompleted: false },
+      { id: 'bench-1', weight: '80', reps: '10', isCompleted: true },
+      { id: 'bench-2', weight: '80', reps: '8', isCompleted: true },
+      { id: 'bench-3', weight: '85', reps: '6', isCompleted: false },
     ],
   },
   {
@@ -17,9 +20,13 @@ export const referenceWorkout: WorkoutExercise[] = [
     name: 'Incline Dumbbell Press',
     muscleGroup: 'Chest',
     category: 'Dumbbell',
+    isCustom: false,
+    createdAt: 0,
+    updatedAt: 0,
     sets: [
-      { id: 'incline-1', weight: '24', reps: '10', isCompleted: true },
-      { id: 'incline-2', weight: '24', reps: '10', isCompleted: false },
+      { id: 'inc-1', weight: '30', reps: '10', isCompleted: true },
+      { id: 'inc-2', weight: '30', reps: '10', isCompleted: false },
+      { id: 'inc-3', weight: '30', reps: '8', isCompleted: false },
     ],
   },
 ];

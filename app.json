@@ -6,14 +6,12 @@
     "orientation": "portrait",
     "scheme": "repflow",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.sayid.repflow"
     },
     "android": {
-      "package": "com.sayid.repflow",
-      "edgeToEdgeEnabled": true
+      "package": "com.sayid.repflow"
     },
     "plugins": ["expo-router", "expo-sqlite"],
     "experiments": {

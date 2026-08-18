@@ -1,6 +1,7 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { migrations } from './migrations';
+import { seedExercises } from './seed/exercisesSeed';
 
 export type DatabaseConnection = Pick<SQLiteDatabase, 'execAsync' | 'getFirstAsync' | 'withTransactionAsync'>;
 
@@ -17,6 +18,9 @@ export async function initializeDatabase(database: DatabaseConnection) {
       await database.withTransactionAsync(async () => {
         await database.execAsync(migration.sql);
         await database.execAsync(`PRAGMA user_version = ${migration.version};`);
+        if (migration.version === 1) {
+          await seedExercises(database);
+        }
       });
     }
   } catch (error) {

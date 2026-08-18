@@ -36,7 +36,7 @@ function reducer(state: WorkoutExercise[], action: Action): WorkoutExercise[] {
     }
     return {
       ...exercise,
-      sets: exercise.sets.map((set): WorkoutSet => {
+      sets: exercise.sets.map((set: WorkoutSet): WorkoutSet => {
         if (set.id !== action.setId) return set;
         if (action.type === 'toggleSet') return { ...set, isCompleted: !set.isCompleted };
         return { ...set, [action.field]: action.value };

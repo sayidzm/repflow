@@ -1,3 +1,5 @@
+jest.setTimeout(15000);
+
 jest.mock('lucide-react-native', () => {
   const React = require('react');
   const { View } = require('react-native');

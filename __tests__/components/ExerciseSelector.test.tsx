@@ -41,7 +41,7 @@ describe('MuscleGroupFilters', () => {
 });
 
 describe('ExercisePickerRow', () => {
-  const exercise = { id: 'bench-press', name: 'Bench Press', muscleGroup: 'Chest' as const, category: 'Barbell' };
+  const exercise = { id: 'bench-press', name: 'Bench Press', muscleGroup: 'Chest' as const, category: 'Barbell' as const, isCustom: false, createdAt: 0, updatedAt: 0 };
 
   it('renders exercise name and meta', async () => {
     const { getByText } = await render(<ExercisePickerRow exercise={exercise} selected={false} onPress={jest.fn()} />);

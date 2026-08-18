@@ -4,6 +4,45 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Phase 2 (Exercise System & Persistence)
+
+### Tamamlanan iş
+
+- `src/domain/models/exercise.ts` altında `MuscleGroup`, `ExerciseCategory`, `Exercise`, `CreateExerciseInput`, `UpdateExerciseInput` tipleri ve `MUSCLE_GROUPS`, `EXERCISE_CATEGORIES` sabitleri tanımlandı.
+- `src/domain/validation/exerciseValidation.ts` ile egzersiz oluşturma doğrulama kuralları eklendi (boş isim kontrolü, 50 karakter üst sınırı, geçerli kas grubu ve kategori kontrolü).
+- `src/database/seed/exercisesSeed.ts` ile 17 varsayılan egzersiz verisi tanımlandı ve `initializeDatabase` migration runner'ına `INSERT OR IGNORE` ile entegre edildi.
+- `src/database/repositories/ExerciseRepository.ts` katmanı oluşturuldu (`getAll`, `getById`, `getByName`, `create`, `update`, `archive`, `unarchive`).
+- `src/features/exercises/components/CreateExerciseModal.tsx` modal bileşeni yazıldı.
+- `src/features/exercises/hooks/useExercises.ts` hook'u SQLite ve in-memory fallback desteğiyle yazıldı.
+- `app/exercises/select.tsx` ve `app/(tabs)/exercises.tsx` ekranları `useExercises` ve `CreateExerciseModal` entegrasyonu ile güncellendi.
+- Unit ve integration testler eklendi (`exerciseValidation.test.ts`, `ExerciseRepository.test.ts`, `CreateExerciseModal.test.tsx`).
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (7 suites, 34 tests)
+- `npx expo-doctor`: Passed (21/21 checks)
+- `npx expo export --platform web`: Passed
+
+## 2026-08-18 — Expo Bundling & Dependency Version Fix
+
+### Tamamlanan iş
+
+- Expo SDK 57 ile uyumsuz olan `react-native` (0.87.0 -> 0.86.2) sürümü uyumlu versiyona çekilerek `ERR_PACKAGE_PATH_NOT_EXPORTED: ./rn-get-polyfills` bundling hatası giderildi.
+- Eksik olan `expo-constants` bağımlılığı eklendi.
+- `app.json` içindeki geçersiz/eskimiş `newArchEnabled` ve `android.edgeToEdgeEnabled` alanları temizlendi.
+- `metro.config.js` dosyası eklenerek `expo-sqlite` WebAssembly (`wasm`) asset çözümlenmesi sağlandı.
+- TypeScript 6.0+ uyumluluğu için `tsconfig.json` yapılandırması güncellendi.
+
+### Doğrulama
+
+- `npx expo-doctor`: Passed (21/21 checks)
+- `npx expo export --platform web`: Passed (Web bundled successfully)
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (4 suites, 21 tests)
+
 ## 2026-08-18 — Phase 1A & Phase 1B (Proje Temeli & Tasarım Entegrasyonu)
 
 ### Tamamlanan iş

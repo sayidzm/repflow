@@ -1,11 +1,6 @@
-export type MuscleGroup = 'Chest' | 'Back' | 'Legs' | 'Shoulders' | 'Arms' | 'Core';
+import type { Exercise } from './exercise';
 
-export type Exercise = {
-  id: string;
-  name: string;
-  muscleGroup: MuscleGroup;
-  category: string;
-};
+export * from './exercise';
 
 export type WorkoutSet = {
   id: string;

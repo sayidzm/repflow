@@ -35,7 +35,7 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
         <AppText style={styles.label}>REPS</AppText>
         <View style={styles.checkSpacer} />
       </View>
-      {exercise.sets.map((set, index) => (
+      {exercise.sets.map((set: WorkoutExercise['sets'][number], index: number) => (
         <WorkoutSetRow
           index={index}
           key={set.id}

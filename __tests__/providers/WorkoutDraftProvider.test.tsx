@@ -10,13 +10,13 @@ function TestComponent() {
     <>
       <Text testID="count">{exercises.length}</Text>
       {exercises.map((exercise) =>
-        exercise.sets.map((set) => (
+        exercise.sets.map((set: { id: string; weight: string; reps: string; isCompleted: boolean }) => (
           <Text key={set.id} testID={`set-${set.id}`}>
             {`${set.weight}|${set.reps}|${set.isCompleted ? '1' : '0'}`}
           </Text>
         )),
       )}
-      <Pressable testID="add-exercise" onPress={() => addExercise({ id: 'new-ex', name: 'New', muscleGroup: 'Core', category: 'Bodyweight' })} />
+      <Pressable testID="add-exercise" onPress={() => addExercise({ id: 'new-ex', name: 'New', muscleGroup: 'Core', category: 'Bodyweight', isCustom: false, createdAt: 0, updatedAt: 0 })} />
       <Pressable testID="add-set" onPress={() => addSet(exercises[0]?.id ?? '')} />
       <Pressable testID="update-weight" onPress={() => { const set = exercises[0]?.sets[0]; if (set) updateSet(exercises[0].id, set.id, 'weight', '100'); }} />
       <Pressable testID="toggle" onPress={() => { const set = exercises[0]?.sets[0]; if (set) toggleSet(exercises[0].id, set.id); }} />
