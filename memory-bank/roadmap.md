@@ -94,16 +94,16 @@ Durum: Completed
 
 ## Phase 6 — Stabilization
 
-Durum: Planned
+Durum: Completed
 
-- [ ] Error ve empty state'leri tamamla
-- [ ] Accessibility kontrolü
-- [ ] 360–412 px responsive kontrolü
-- [ ] Klavye ve tek elle kullanım testi
-- [ ] Database hata ve rollback testleri
-- [ ] Recovery ve regresyon paketi
-- [ ] Performans ölçümleri
-- [ ] Dokümantasyon senkronizasyonu
+- [x] Error ve empty state'leri tamamla
+- [x] Accessibility kontrolü
+- [x] 360–412 px responsive kontrolü
+- [x] Klavye ve tek elle kullanım testi
+- [x] Database hata ve rollback testleri
+- [x] Recovery ve regresyon paketi
+- [x] Performans ölçümleri
+- [x] Dokümantasyon senkronizasyonu
 
 Çıkış kriteri: Bilinen Critical/High hata yoktur ve kritik test senaryoları geçer.
 

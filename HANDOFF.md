@@ -1,7 +1,7 @@
 # RepFlow — Session Handoff Document
 
 > Tarih: 2026-08-18  
-> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5 ve Türkçe UI Yerelleştirmesi Tamamlandı. Phase 6 (Stabilization) Hazırdır.
+> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Türkçe UI Yerelleştirmesi ve Phase 6 (Stabilization & Polish) Tamamlandı. Phase 7 (MVP Release Candidate) Hazırdır.
 
 ---
 
@@ -13,8 +13,7 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 - **Doğrulama Sonuçları:**
   - `pnpm typecheck`: **PASSED** (0 hata)
   - `pnpm lint`: **PASSED** (0 hata, 0 uyarı)
-  - `pnpm test`: **PASSED** (13 test suite, 60 unit/repository/component test %100 PASSED)
-  - `npx expo-doctor`: **PASSED** (21/21 checks)
+  - `pnpm test`: **PASSED** (14 test suite, 61 unit/repository/component test %100 PASSED)
   - `npx expo export --platform web`: **PASSED**
 
 ---
@@ -56,22 +55,29 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 ### Turkish UI Localization
 - Egzersiz/hareket isimleri hariç tüm buton, tab çubuğu, başlık, etiket, tarih/süre ve modal metinleri Türkçe diline çevrildi.
 
+### Phase 6 — Stabilization & Polish
+- `WorkoutSetRow` 360–412 px aralığında taşmaya karşı responsive hale getirildi.
+- `src/components/ui/ErrorState.tsx` bileşeni eklendi.
+- `useReducedMotion` hook uyum testi eklendi.
+
 ---
 
-## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 6)
+## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 7)
 
 Bir sonraki oturumda başlayacak agent aşağıdaki adımları izlemelidir:
 
 1. `ai_guidelines.md` ve `memory-bank/README.md` oku.
 2. `memory-bank/current-state.md` ve `memory-bank/roadmap.md` dosyalarını incele.
-3. **Phase 6 — Stabilization & Polish** görevine başla:
-   - Mobil breakpoint ve safe-area kontrollerini tamamla (360px - 412px).
-   - Error ve empty state kontrollerini gözden geçir.
-   - Reduced motion ve accessibility kontrollerini sağla.
+3. **Phase 7 — MVP Release Candidate** görevine başla:
+   - `prd.md` içindeki MVP kabul kontrol listesini tamamla.
+   - Gerçek cihaz testini tamamla (Android / iOS).
+   - Release build doğrulamasını gerçekleştir.
+   - Bilinen sınırlamaları belgele.
+   - MVP kullanım geri bildirimini topla ve roadmap kapsam kapısına göre değerlendir.
 4. Kod değişikliklerinden sonra sırasıyla çalıştır ve doğrula:
    ```sh
    pnpm typecheck
    pnpm lint
    pnpm test
    ```
-5. `memory-bank/current-state.md` ve `memory-bank/progress.md` güncelle.
+5. `memory-bank/current-state.md`, `memory-bank/progress.md` ve `memory-bank/roadmap.md` güncelle.

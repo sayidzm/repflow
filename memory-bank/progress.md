@@ -4,6 +4,23 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Phase 6 (Stabilization & Polish)
+
+### Tamamlanan iş
+
+- **Responsive / Genişlik Kontrolleri:** `WorkoutSetRow` bileşeninde 360 px gibi dar ekranlarda oluşabilecek yatay taşma ve input daralması düzeltildi. Set numarası alanı daraltıldı, "previous" sütunu esnek genişlikli hale getirildi ve weight/reps input'larına `minWidth` eklendi (flex tabanlı hizalama 360–412 px aralığında korunur).
+- **Safe-area & Klavye Uyumu:** Aktif Antrenman ekranındaki alt aksiyon çubuğu, `useSafeAreaInsets().bottom` değerini kullanmaya devam ediyor; `KeyboardAvoidingView` iOS (`padding`) ve Android (`height`) davranışlarıyla klavye açıkken input'ların görünür kalması sağlandı.
+- **Error / Empty States:** `src/components/ui/ErrorState.tsx` bileşeni eklendi (başlık, açıklama ve "Tekrar Dene" retry aksiyonu). Mevcut `EmptyState` bileşenleriyle birlikte boş ekran durumları Türkçe olarak gözden geçirildi.
+- **Erişilebilirlik & Reduced Motion:** `useReducedMotion` hook'u için unit test eklendi. Tüm dokunulabilir kontroller minimum 44x44 dp hedef boyutunu koruyor (check butonu, set satırları, tab barları, add/finish butonları).
+- **Doğrulama:** `expo export --platform web` başarıyla tamamlandı (2711 modül web bundle).
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (14 suites, 61 tests %100 PASSED)
+- `npx expo export --platform web`: Passed (Web bundled successfully)
+
 ## 2026-08-18 — Turkish Localization (Uygulama Yerelleştirmesi)
 
 ### Tamamlanan iş

@@ -1,17 +1,21 @@
 # Current State
 
 > Son güncelleme: 2026-08-18  
-> Aktif faz: Phase 5 (History and Progress System) Completed + Full Turkish UI Localization  
-> Genel durum: Full Turkish UI translation applied (excluding exercise names/muscle groups), History & Progress SQLite repositories, History screen & Workout Detail screen, Exercise Progress screen and 60 unit/repository/component tests passed (%100).
+> Aktif faz: Phase 6 (Stabilization & Polish) Completed  
+> Genel durum: Responsive breakpoint, safe-area/keyboard, error/empty states, accessibility & reduced motion kontrolleri tamamlandı. 61 test %100 PASSED.
 
 ## 1. Tamamlananlar
 
+- **Phase 6 — Stabilization & Polish:**
+  - `WorkoutSetRow` bileşeni 360–412 px aralığında dar ekran taşmasına karşı esnek hale getirildi (minWidth + flex tabanlı sütunlar).
+  - `src/components/ui/ErrorState.tsx` bileşeni eklendi (hata mesajı + "Tekrar Dene" aksiyonu).
+  - `useReducedMotion` hook'u için unit test eklendi.
+  - `expo export --platform web` başarıyla tamamlandı (2711 modül web bundle).
 - **Türkçe Uygulama Arayüzü (Localization):**
-  - Egzersiz/hareket isimleri ile kas grubu değerleri hariç tüm navigasyon, buton, başlık, etiket, tarih/süre ve modal metinleri Türkçe diline çevrildi.
+  - Egzersiz/hareket isimleri ve kas grubu değerleri hariç tüm navigasyon, buton, başlık, etiket, tarih/süre ve modal metinleri Türkçe diline çevrildi.
 - **History and Progress System (Phase 5):**
   - `HistoryRepository` katmanı ile tamamlanmış antrenmanların (`status = completed`) tarih bazında gruplanarak listelenmesi ve antrenman detaylarının SQLite'tan çekilmesi sağlandı.
   - `ProgressRepository` katmanı ile egzersiz bazlı geçmiş setlerin, son tamamlanan setin ve antrenman başına en ağır setin hesabı bağlandı.
-  - `app/(tabs)/history.tsx`, `app/history/[workoutId].tsx` ve `app/exercises/[exerciseId]/progress.tsx` ekranları SQLite repository'lerine bağlandı.
 - **Routines System & Persistence (Phase 4):**
   - RoutineRepository, CreateRoutineModal ve rutinden antrenman başlatma hazır.
 - **Active Workout Persistence (Phase 3):**
@@ -21,13 +25,12 @@
 - **Doğrulamalar:**
   - `pnpm typecheck`: PASSED (0 hata)
   - `pnpm lint`: PASSED (0 hata, 0 uyarı)
-  - `pnpm test`: PASSED (13 test suite, 60 test %100 PASSED)
-  - `npx expo-doctor`: PASSED (21/21 checks)
+  - `pnpm test`: PASSED (14 test suite, 61 test %100 PASSED)
+  - `npx expo export --platform web`: PASSED
 
 ## 2. Henüz yapılmayanlar / Sıradaki Fazlar
 
-- Phase 6: Stabilization (Error & Empty states, Accessibility, 360-412px UI checks).
-- Phase 7: MVP Release Candidate.
+- Phase 7: MVP Release Candidate (PRD kabul kontrol listesi, gerçek cihaz testi, release build doğrulaması).
 
 ## 3. Aktif kararlar
 
@@ -42,8 +45,8 @@
 
 | Risk | Mevcut yaklaşım |
 | --- | --- |
-| Yok | Bütün MVP işlevsel fazları (Phase 1-5) veritabanına bağlandı ve Türkçe arayüze taşındı. |
+| Expo SDK sürümü gerçek cihaz release build'inde teyit edilmelidir | Phase 7'de gerçek cihaz ve release build doğrulaması yapılacak. |
 
 ## 5. Sıradaki mantıklı adım
 
-Kullanıcı onayı ile Phase 6 (Stabilization & Polish) geliştirmesine geçmek.
+Kullanıcı onayı ile Phase 7 (MVP Release Candidate) geliştirmesine geçmek.

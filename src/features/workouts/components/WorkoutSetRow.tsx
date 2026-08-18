@@ -50,11 +50,11 @@ export function WorkoutSetRow({ index, set, onChange, onToggle }: Props) {
 }
 
 const styles = createStyles({
-  row: { alignItems: 'center', borderRadius: radius.sm, flexDirection: 'row', gap: spacing.xs, minHeight: 52, paddingHorizontal: 4 },
+  row: { alignItems: 'center', borderRadius: radius.sm, flexDirection: 'row', gap: spacing.xs, minHeight: 52, paddingHorizontal: 2 },
   doneRow: { backgroundColor: 'rgba(118,209,160,0.08)' },
-  number: { fontFamily: typography.mono, fontSize: 12, textAlign: 'center', width: 20 },
-  previous: { color: colors.muted, fontFamily: typography.mono, fontSize: 10, textAlign: 'center', width: 54 },
-  input: { backgroundColor: colors.panelRaised, borderColor: colors.line, borderRadius: radius.sm, borderWidth: 1, color: colors.text, flex: 1, fontFamily: typography.mono, fontSize: 14, height: 44, maxWidth: 68, paddingHorizontal: 5, paddingVertical: 0, textAlign: 'center' },
+  number: { fontFamily: typography.mono, fontSize: 12, textAlign: 'center', width: 18 },
+  previous: { color: colors.muted, fontFamily: typography.mono, fontSize: 10, textAlign: 'center', flex: 1, minWidth: 44 },
+  input: { backgroundColor: colors.panelRaised, borderColor: colors.line, borderRadius: radius.sm, borderWidth: 1, color: colors.text, flex: 1, fontFamily: typography.mono, fontSize: 14, height: 44, minWidth: 48, maxWidth: 68, paddingHorizontal: 2, paddingVertical: 0, textAlign: 'center' },
   check: { alignItems: 'center', borderColor: colors.line, borderRadius: 22, borderWidth: 1, height: 44, justifyContent: 'center', width: 44 },
   checkDone: { backgroundColor: colors.success, borderColor: colors.success },
 });
