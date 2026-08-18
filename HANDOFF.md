@@ -1,7 +1,7 @@
 # RepFlow — Session Handoff Document
 
 > Tarih: 2026-08-18  
-> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Türkçe UI Yerelleştirmesi ve Phase 6 (Stabilization & Polish) Tamamlandı. Phase 7 (MVP Release Candidate) Hazırdır.
+> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Türkçe UI Yerelleştirmesi ve Phase 6 (Stabilization & Polish) Tamamlandı. Phase 7 (MVP Release Candidate) kod tarafı doğrulaması tamamlandı; gerçek cihaz testi ve kullanım geri bildirimi bekliyor.
 
 ---
 
@@ -62,22 +62,20 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 
 ---
 
-## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 7)
+## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 7 kalan adımlar)
 
 Bir sonraki oturumda başlayacak agent aşağıdaki adımları izlemelidir:
 
 1. `ai_guidelines.md` ve `memory-bank/README.md` oku.
 2. `memory-bank/current-state.md` ve `memory-bank/roadmap.md` dosyalarını incele.
-3. **Phase 7 — MVP Release Candidate** görevine başla:
-   - `prd.md` içindeki MVP kabul kontrol listesini tamamla.
-   - Gerçek cihaz testini tamamla (Android / iOS).
-   - Release build doğrulamasını gerçekleştir.
-   - Bilinen sınırlamaları belgele.
-   - MVP kullanım geri bildirimini topla ve roadmap kapsam kapısına göre değerlendir.
-4. Kod değişikliklerinden sonra sırasıyla çalıştır ve doğrula:
+3. **Phase 7 — MVP Release Candidate** kalan adımlara devam et:
+   - Kod tarafı doğrulama tamamlandı (typecheck/lint/test/expo-doctor/export/prebuild, FR eşlemesi). Tekrar çalıştırma gerekirse:
    ```sh
    pnpm typecheck
    pnpm lint
    pnpm test
    ```
-5. `memory-bank/current-state.md`, `memory-bank/progress.md` ve `memory-bank/roadmap.md` güncelle.
+   - Gerçek cihaz / emülatör manuel testini tamamla (offline workout döngüsü, recovery, geçmiş/progress).
+   - Bilinen sınırlamaları belgele.
+   - MVP kullanım geri bildirimini topla ve roadmap kapsam kapısına göre değerlendir.
+4. `memory-bank/current-state.md`, `memory-bank/progress.md` ve `memory-bank/roadmap.md` güncelle.

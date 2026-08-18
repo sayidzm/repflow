@@ -109,13 +109,13 @@ Durum: Completed
 
 ## Phase 7 — MVP Release Candidate
 
-Durum: Planned
+Durum: In Progress
 
-- [ ] MVP kabul kontrol listesini tamamla
-- [ ] Gerçek cihaz testini tamamla
-- [ ] Release build doğrulaması
+- [x] MVP kabul kontrol listesini tamamla (kod tarafı: typecheck, lint, test, expo-doctor, export, prebuild, FR-001…FR-016 eşlemesi)
+- [ ] Gerçek cihaz testini tamamla (kullanıcı bağımlı)
+- [ ] Release build doğrulaması (kullanıcı bağımlı; prebuild üretimi doğrulandı)
 - [ ] Bilinen sınırlamaları belgele
-- [ ] MVP kullanım geri bildirimi topla
+- [ ] MVP kullanım geri bildirimi topla (kullanıcı bağımlı)
 
 Çıkış kriteri: `prd.md` başarı kriterlerinin tamamı karşılanır.
 

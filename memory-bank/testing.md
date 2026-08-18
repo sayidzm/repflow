@@ -1,6 +1,6 @@
 # Testing Strategy
 
-> Durum: Planlandı, test altyapısı henüz kurulmadı  
+> Durum: Aktif (Jest + jest-expo + React Native Testing Library ile uygulandı)  
 > Son güncelleme: 2026-08-18
 
 ## 1. Test hedefi

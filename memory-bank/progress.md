@@ -4,6 +4,51 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Web Platform Bug Fix
+
+### Tamamlanan iş
+
+- `SafeSQLiteProvider.tsx` web platform uyumsuzluğu düzeltildi. Hata: web'de `SQLiteProvider` render ediliyordu ve çeşitli errorlar oluşturuyordu. Çözüm: `Platform.OS === 'web'` durumunda provider'ı tamamen atla, yalnız children render et. Native platformlar (iOS/Android) normal SQLite flow'unu koruyor.
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (14 suites, 61 tests)
+- `npx expo export --platform web`: **Now Passed** (previously looping errors)
+
+## 2026-08-18 — Phase 7 (MVP Release Candidate) — Kod tarafı doğrulama
+
+### Tamamlanan iş
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (14 suites, 61 tests %100 PASSED)
+- `npx expo-doctor`: Passed (21/21 checks)
+- `npx expo export --platform web`: Passed (2 web bundle, `dist/`)
+- `npx expo prebuild --platform android --no-install`: Passed (native dizin üretimi doğrulandı; sonrasında gitignored `android/` folder'ı ve `package.json` script değişikliği geri alındı)
+- `prd.md` FR-001…FR-016 maddeleri kod davranışıyla eşleştirildi; tamamı mevcut kod ve testlerle karşılanıyor.
+- Route iskeleti doğrulandı: 4 tab (`index`, `routines`, `history`, `exercises`) + stack (`workout/active`, `exercises/select`, `history/[workoutId]`, `exercises/[exerciseId]/progress`).
+- Native build ortamı tespiti: Java 21 + Android SDK + `eas` CLI mevcut; bağlı cihaz ve AVD yok (gerçek cihaz testi kullanıcı tarafından yapılacak).
+
+### Kalan (kullanıcı bağımlı)
+
+- Gerçek cihaz / emülatör testi (manuel go-through).
+- MVP sonrası kullanım geri bildirimi toplanması.
+
+## 2026-08-18 — Memory Bank dokümantasyon senkronizasyonu
+
+### Tamamlanan iş
+
+- `architecture.md`, `data-model.md`, `testing.md` "henüz uygulanmadı / kurulmadı" durum başlıkları güncel gerçekle eşleştirildi (mimari, migration ve test altyapısı uygulanmış durumda).
+- `project-context.md` §10 "Mevcut durum özeti" bölümü Phase 1–6 tamamlanma durumuna göre güncellendi.
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (14 suites, 61 tests %100 PASSED)
+
 ## 2026-08-18 — Phase 6 (Stabilization & Polish)
 
 ### Tamamlanan iş

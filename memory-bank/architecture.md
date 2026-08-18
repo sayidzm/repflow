@@ -1,6 +1,6 @@
 # Architecture
 
-> Durum: Accepted, henüz uygulanmadı  
+> Durum: Accepted, uygulandı ve doğrulandı  
 > Son güncelleme: 2026-08-18
 
 ## 1. Mimari hedef

@@ -1,12 +1,20 @@
 # Current State
 
 > Son güncelleme: 2026-08-18  
-> Aktif faz: Phase 6 (Stabilization & Polish) Completed  
-> Genel durum: Responsive breakpoint, safe-area/keyboard, error/empty states, accessibility & reduced motion kontrolleri tamamlandı. 61 test %100 PASSED.
+> Aktif faz: Phase 7 (MVP Release Candidate) — kod tarafı doğrulama tamamlandı, gerçek cihaz testi bekliyor.  
+> Genel durum: COD tarafı kabul kontrol listesi geçti (typecheck/lint/test/expo-doctor/export/prebuild). Gerçek cihaz ve kullanım geri bildirimi adımları kullanıcı bağımlıdır.
 
 ## 1. Tamamlananlar
 
-- **Phase 6 — Stabilization & Polish:**
+- **Phase 7 kod tarafı doğrulama:**
+  - `pnpm typecheck`: PASSED
+  - `pnpm lint`: PASSED
+  - `pnpm test`: PASSED (14 suite, 61 test)
+  - `npx expo-doctor`: PASSED (21/21)
+  - `npx expo export --platform web`: PASSED
+  - `npx expo prebuild --platform android`: PASSED (native dizin üretimi doğrulandı; üretilen `android/` folder'ı ve script değişikliği geri alındı)
+  - `prd.md` FR-001…FR-016 eşlemesi tamamlandı.
+- **Phase 6 — Stabilization & Polish:** (önceki durum korunuyor)
   - `WorkoutSetRow` bileşeni 360–412 px aralığında dar ekran taşmasına karşı esnek hale getirildi (minWidth + flex tabanlı sütunlar).
   - `src/components/ui/ErrorState.tsx` bileşeni eklendi (hata mesajı + "Tekrar Dene" aksiyonu).
   - `useReducedMotion` hook'u için unit test eklendi.
@@ -30,7 +38,9 @@
 
 ## 2. Henüz yapılmayanlar / Sıradaki Fazlar
 
-- Phase 7: MVP Release Candidate (PRD kabul kontrol listesi, gerçek cihaz testi, release build doğrulaması).
+- Phase 7 kalan adımlar (kullanıcı bağımlı):
+  - Gerçek cihaz / emülatör manuel testi (offline workout döngüsü, recovery, geçmiş/progress).
+  - MVP kullanım geri bildirimi toplanması ve roadmap kapsam kapısı değerlendirmesi.
 
 ## 3. Aktif kararlar
 
@@ -49,4 +59,4 @@
 
 ## 5. Sıradaki mantıklı adım
 
-Kullanıcı onayı ile Phase 7 (MVP Release Candidate) geliştirmesine geçmek.
+Kullanıcı onayı ile gerçek cihaz (veya emülatör) üzerinde Phase 7 manuel test akışlarını tamamlamak; ardından MVP kullanım geri bildirimini toplayıp roadmap kapsam kapısına göre değerlendirmek.

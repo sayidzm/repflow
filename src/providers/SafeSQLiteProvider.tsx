@@ -33,18 +33,14 @@ class SQLiteErrorBoundary extends Component<Props, State> {
 
 export function SafeSQLiteProvider({ children }: Props) {
   if (Platform.OS === 'web') {
-    return (
-      <SQLiteErrorBoundary>
-        <SQLiteProvider databaseName=":memory:" onInit={initializeDatabase}>
-          {children}
-        </SQLiteProvider>
-      </SQLiteErrorBoundary>
-    );
+    return <>{children}</>;
   }
 
   return (
-    <SQLiteProvider databaseName="repflow.db" onInit={initializeDatabase} useSuspense>
-      {children}
-    </SQLiteProvider>
+    <SQLiteErrorBoundary>
+      <SQLiteProvider databaseName="repflow.db" onInit={initializeDatabase} useSuspense>
+        {children}
+      </SQLiteProvider>
+    </SQLiteErrorBoundary>
   );
 }

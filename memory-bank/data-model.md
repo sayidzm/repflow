@@ -1,6 +1,6 @@
 # Data Model
 
-> Durum: MVP için onaylı tasarım, henüz migration oluşturulmadı  
+> Durum: MVP için onaylı tasarım, uygulandı (`001_initialSchema` migration)  
 > Son güncelleme: 2026-08-18
 
 ## 1. Genel kurallar
