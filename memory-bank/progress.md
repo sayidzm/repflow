@@ -4,6 +4,24 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Phase 5 (History and Progress System)
+
+### Tamamlanan iş
+
+- `src/database/repositories/HistoryRepository.ts` oluşturuldu. `status = completed` olan antrenmanları tarihlerine göre gruplayarak listeleme ve `getWorkoutDetail` ile tamamlanmış antrenman detaylarını (egzersiz snapshot'ları ve set satırları) getirme desteği sağlandı.
+- `src/database/repositories/ProgressRepository.ts` oluşturuldu. Tamamlanmış antrenmanlardan egzersiz bazlı geçmiş set oturumlarını (`sessions`), en son set verisini (`latestSet`) ve antrenman başına en ağır seti (`heaviestSet`) hesaplama desteği eklendi.
+- `src/features/history/hooks/useHistory.ts` ve `src/features/progress/hooks/useProgress.ts` hook'ları yazıldı.
+- `app/(tabs)/history.tsx` (Geçmiş antrenmanlar listesi) ve `app/history/[workoutId].tsx` (Antrenman detay ekranı) SQLite verisine bağlandı.
+- `app/exercises/[exerciseId]/progress.tsx` (Egzersiz gelişim ve geçmiş ekranı) SQLite verilerine ve dinamik en ağır set özetine bağlandı.
+- Unit ve repository testleri yazıldı (`HistoryRepository.test.ts`, `ProgressRepository.test.ts`).
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (13 suites, 60 tests %100 PASSED)
+- `npx expo-doctor`: Passed (21/21 checks)
+
 ## 2026-08-18 — Phase 4 (Routines System & Persistence)
 
 ### Tamamlanan iş

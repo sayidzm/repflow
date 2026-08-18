@@ -10,10 +10,12 @@ import { Label } from '@/components/ui/Label';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { HistoryWorkoutRow } from '@/features/history/components/HistoryWorkoutRow';
-import { referenceHistory } from '@/features/history/data/referenceHistory';
+import { useHistory } from '@/features/history/hooks/useHistory';
 import { colors, spacing } from '@/theme';
 
 export default function HistoryScreen() {
+  const { groups } = useHistory();
+
   return (
     <Screen bottomInset={false}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -26,14 +28,20 @@ export default function HistoryScreen() {
           label="TRAINING LOG"
           title="History"
         />
-        {referenceHistory.length === 0 ? (
+        {groups.length === 0 ? (
           <EmptyState message="Completed workouts will appear here." title="No workouts logged yet" />
         ) : (
-          referenceHistory.map((group) => (
+          groups.map((group) => (
             <View key={group.date} style={styles.group}>
               <Label>{group.date}</Label>
               {group.workouts.map((workout) => (
-                <HistoryWorkoutRow {...workout} key={workout.id} onPress={() => router.push(`/history/${workout.id}`)} />
+                <HistoryWorkoutRow
+                  detail={workout.detail}
+                  duration={workout.duration}
+                  key={workout.id}
+                  name={workout.name}
+                  onPress={() => router.push(`/history/${workout.id}`)}
+                />
               ))}
             </View>
           ))

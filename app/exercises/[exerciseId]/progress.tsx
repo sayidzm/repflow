@@ -12,15 +12,16 @@ import { IconButton } from '@/components/ui/IconButton';
 import { Label } from '@/components/ui/Label';
 import { Screen } from '@/components/ui/Screen';
 import { useExercises } from '@/features/exercises/hooks/useExercises';
+import { useProgress } from '@/features/progress/hooks/useProgress';
 import { colors, radius, spacing, typography } from '@/theme';
 
 export default function ExerciseProgressScreen() {
   const { exerciseId } = useLocalSearchParams<{ exerciseId: string }>();
   const { exercises, archiveExercise } = useExercises({ includeArchived: true });
+  const { summary } = useProgress(exerciseId);
   const [optionsVisible, setOptionsVisible] = useState(false);
 
   const exercise = exercises.find((item) => item.id === exerciseId);
-  const history: { date: string; sets: string[] }[] = []; // Empty history (no mock data)
 
   if (!exercise) {
     return (
@@ -36,6 +37,12 @@ export default function ExerciseProgressScreen() {
       </Screen>
     );
   }
+
+  const latestStr = summary.latestSet
+    ? `${summary.latestSet.weight} kg × ${summary.latestSet.reps}`
+    : '- kg × -';
+
+  const heaviestStr = summary.heaviestSet ? `${summary.heaviestSet.weight} kg` : '- kg';
 
   return (
     <Screen>
@@ -61,29 +68,25 @@ export default function ExerciseProgressScreen() {
         <View style={styles.summary}>
           <View style={styles.summaryCell}>
             <Label>LATEST</Label>
-            <AppText style={styles.metric}>
-              - <AppText style={styles.unit}>kg × -</AppText>
-            </AppText>
+            <AppText style={styles.metric}>{latestStr}</AppText>
           </View>
           <View style={styles.summaryCell}>
             <Label>HEAVIEST SET</Label>
-            <AppText style={styles.metric}>
-              - <AppText style={styles.unit}>kg</AppText>
-            </AppText>
+            <AppText style={styles.metric}>{heaviestStr}</AppText>
           </View>
         </View>
 
         <Label style={styles.historyLabel}>HISTORY</Label>
-        {history.length === 0 ? (
+        {summary.sessions.length === 0 ? (
           <EmptyState message="Log workouts with this exercise to see your history here." title="No history recorded" />
         ) : (
-          history.map((session) => (
-            <View key={session.date} style={styles.entry}>
+          summary.sessions.map((session) => (
+            <View key={session.workoutId} style={styles.entry}>
               <AppText style={styles.date}>{session.date}</AppText>
               <View style={styles.sets}>
-                {session.sets.map((set, index) => (
-                  <AppText key={`${session.date}-${index}`} style={styles.set}>
-                    {set}
+                {session.sets.map((s, index) => (
+                  <AppText key={s.id || `${session.workoutId}-${index}`} style={styles.set}>
+                    {s.weight} kg × {s.reps}
                   </AppText>
                 ))}
               </View>
@@ -125,8 +128,7 @@ const styles = createStyles({
   meta: { color: colors.muted, fontFamily: typography.regular, fontSize: 13, marginTop: spacing.xs },
   summary: { backgroundColor: colors.panel, borderColor: colors.line, borderRadius: radius.lg, borderWidth: 1, flexDirection: 'row' },
   summaryCell: { flex: 1, padding: spacing.md },
-  metric: { fontFamily: typography.extraBold, fontSize: 25, letterSpacing: -1, marginTop: spacing.sm },
-  unit: { color: colors.muted, fontFamily: typography.semibold, fontSize: 11 },
+  metric: { fontFamily: typography.extraBold, fontSize: 20, letterSpacing: -0.8, marginTop: spacing.xs },
   historyLabel: { marginTop: spacing.xl },
   entry: { borderBottomColor: colors.line, borderBottomWidth: 1, flexDirection: 'row', paddingVertical: spacing.md },
   date: { fontFamily: typography.mono, fontSize: 11, width: 72 },

@@ -1,7 +1,7 @@
 # RepFlow — Session Handoff Document
 
 > Tarih: 2026-08-18  
-> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4 (Routines Core & Persistence) Tamamlandı. Phase 5 (History and Progress) Hazırdır.
+> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5 (History and Progress) Tamamlandı. Phase 6 (Stabilization) Hazırdır.
 
 ---
 
@@ -13,7 +13,7 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 - **Doğrulama Sonuçları:**
   - `pnpm typecheck`: **PASSED** (0 hata)
   - `pnpm lint`: **PASSED** (0 hata, 0 uyarı)
-  - `pnpm test`: **PASSED** (11 test suite, 56 unit/repository/component test %100 PASSED)
+  - `pnpm test`: **PASSED** (13 test suite, 60 unit/repository/component test %100 PASSED)
   - `npx expo-doctor`: **PASSED** (21/21 checks)
   - `npx expo export --platform web`: **PASSED**
 
@@ -47,18 +47,24 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 - `CreateRoutineModal` rutin oluşturma ve düzenleme modal editörü.
 - Rutinden tek dokunuşla yeni aktif antrenman başlatma (`startWorkoutFromRoutine`).
 
+### Phase 5 — History and Progress System
+- `HistoryRepository` katmanı (`getCompletedWorkouts`, `getWorkoutDetail`).
+- `ProgressRepository` katmanı (`getExerciseProgress`: latest set, heaviest set, completed sessions).
+- `useHistory` ve `useProgress` hook'ları.
+- `app/(tabs)/history.tsx`, `app/history/[workoutId].tsx` ve `app/exercises/[exerciseId]/progress.tsx` ekranlarının veritabanı sorgularına bağlanması.
+
 ---
 
-## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 5)
+## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 6)
 
 Bir sonraki oturumda başlayacak agent aşağıdaki adımları izlemelidir:
 
 1. `ai_guidelines.md` ve `memory-bank/README.md` oku.
 2. `memory-bank/current-state.md` ve `memory-bank/roadmap.md` dosyalarını incele.
-3. **Phase 5 — History and Progress System** görevine başla:
-   - `HistoryRepository` ve `ProgressRepository` katmanlarını yaz.
-   - Tamamlanmış antrenman geçmişini veritabanından listeleme ve `[workoutId].tsx` detay ekranına bağlama.
-   - Egzersiz bazlı set geçmişini ve antrenman başına en ağır set özetini SQLite sorgularıyla `[exerciseId]/progress.tsx` ekranına bağlama.
+3. **Phase 6 — Stabilization & Polish** görevine başla:
+   - Mobil breakpoint ve safe-area kontrollerini tamamla (360px - 412px).
+   - Error ve empty state kontrollerini gözden geçir.
+   - Reduced motion ve accessibility kontrollerini sağla.
 4. Kod değişikliklerinden sonra sırasıyla çalıştır ve doğrula:
    ```sh
    pnpm typecheck

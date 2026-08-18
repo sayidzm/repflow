@@ -81,14 +81,14 @@ Durum: Completed
 
 ## Phase 5 — History and Progress
 
-Durum: Planned
+Durum: Completed
 
-- [ ] Geçmiş listesi
-- [ ] Workout detail
-- [ ] Egzersiz progress listesi
-- [ ] Workout başına en ağır set özeti
-- [ ] Uzun liste performansı
-- [ ] Query ve UI testleri
+- [x] Geçmiş listesi
+- [x] Workout detail
+- [x] Egzersiz progress listesi
+- [x] Workout başına en ağır set özeti
+- [x] Uzun liste performansı
+- [x] Query ve UI testleri
 
 Çıkış kriteri: Tamamlanan workout'lar doğru görünür ve exercise progress yalnız geçerli completed veriden üretilir.
 
