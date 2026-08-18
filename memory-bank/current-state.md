@@ -2,7 +2,7 @@
 
 > Son güncelleme: 2026-08-18  
 > Aktif faz: Phase 7 (MVP Release Candidate) — kod tarafı doğrulama tamamlandı, gerçek cihaz testi bekliyor.  
-> Genel durum: COD tarafı kabul kontrol listesi geçti (typecheck/lint/test/expo-doctor/export/prebuild). Gerçek cihaz ve kullanım geri bildirimi adımları kullanıcı bağımlıdır.
+> Genel durum: COD tarafı kabul kontrol listesi geçti (typecheck/lint/test/expo-doctor/export/prebuild). Gerçek cihaz ve kullanım geri bildirimi adımları kullanıcı bağımlıdır. Web platformunda kalıcılık yoktur (SQLite native-only); veri kalıcılığı Android/iOS'ta sağlanır.
 
 ## 1. Tamamlananlar
 
@@ -42,6 +42,12 @@
   - Gerçek cihaz / emülatör manuel testi (offline workout döngüsü, recovery, geçmiş/progress).
   - MVP kullanım geri bildirimi toplanması ve roadmap kapsam kapısı değerlendirmesi.
 
+## 2.1 Web platform davranışı
+
+- Expo SQLite native platformlarda (iOS/Android) çalışır; web tarayıcısında desteklenmez.
+- Web'de `useRoutines` ve `WorkoutDraftProvider` in-memory fallback ile çalışır; hata fırlatmaz ancak veri kalıcı değildir.
+- Web, geliştirme/UI doğrulaması için kullanılabilir; veri kalıcılığı testleri Android/iOS'ta yapılmalıdır.
+
 ## 3. Aktif kararlar
 
 - React Native + Expo + TypeScript
@@ -56,6 +62,7 @@
 | Risk | Mevcut yaklaşım |
 | --- | --- |
 | Expo SDK sürümü gerçek cihaz release build'inde teyit edilmelidir | Phase 7'de gerçek cihaz ve release build doğrulaması yapılacak. |
+| Web'de SQLite çalışmaz; veriler session ile sınırlıdır | Web geliştirme/UI doğrulaması içindir; kalıcı veri Android/iOS. IndexedDB gibi web kalıcılığı MVP dışı karardır. |
 
 ## 5. Sıradaki mantıklı adım
 

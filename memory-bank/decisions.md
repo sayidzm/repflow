@@ -21,6 +21,30 @@ Bu dosya önemli ürün ve teknik kararların geçmişini tutar. Kabul edilmiş 
 | DEC-011 | Progress'in grafik yerine tarihsel set listesi olması | Accepted | 2026-08-18 |
 | DEC-012 | Workout süresinin timestamp üzerinden hesaplanması | Accepted | 2026-08-18 |
 | DEC-013 | Phase 1B Tasarım Entegrasyonu ve yerel draft state kullanımı | Accepted | 2026-08-18 |
+| DEC-014 | Web platformunda SQLite yerine in-memory fallback | Accepted | 2026-08-18 |
+
+---
+
+## DEC-014 — Web platformunda SQLite yerine in-memory fallback
+
+- Tarih: 2026-08-18
+- Durum: Accepted
+
+### Bağlam
+Expo SQLite yalnız native platformlarda (iOS/Android) çalışır. Web tarayıcısında `SQLiteProvider` desteklenmez ve `useSQLiteContext()` boş kalır. Kullanıcı web üzerinde `expo start` ile test ederken workout kaydetme ve rutin oluşturma hataları veriyordu.
+
+### Karar
+Web'de `useRoutines` (create/update/delete) ve `WorkoutDraftProvider.finishWorkout` SQLite yerine in-memory state ile çalışır. Hata fırlatmak yerine memory fallback kullanılır. Native'de mevcut SQLite repository flow'u korunur.
+
+### Gerekçe
+- Web, geliştirme ve UI doğrulaması için kullanıcı tarafından tercih ediliyor.
+- İn-memory fallback, web'de uygulamanın akışını test edilebilir kılar.
+- Kalıcılık (IndexedDB gibi web storage) MVP kapsamı dışındadır; gerekirse ayrı karar ile eklenir.
+
+### Sonuçlar
+- Web'de veriler session boyunca in-memory tutulur; sayfa yenilenince kaybolur.
+- Native platformlar etkilenmez; SQLite source of truth kuralı (DEC-005) korunur.
+- Web'de kalıcı veri gereksinimi oluşursa DEC-014 yeniden değerlendirilir.
 
 ---
 

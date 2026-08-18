@@ -1,6 +1,6 @@
 # Gym / Workout Tracking App — Product Requirements Document
 
-> Status: MVP kapsamı onaylandı, geliştirme başlamadı  
+> Status: MVP kapsamı onaylandı, uygulandı (Phase 1–6 tamamlandı), MVP Release Candidate aşamasında (Phase 7)  
 > Belge sürümü: 1.0  
 > Son güncelleme: 2026-08-18
 

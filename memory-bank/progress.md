@@ -4,6 +4,20 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Web Platform Fallbacks & Veri Kalıcılığı Düzeltmeleri
+
+### Tamamlanan iş
+
+- **Database hata düzeltmesi:** `WorkoutDraftProvider` `finishWorkout`/`discardWorkout` işlemlerine try-catch, error state ve console logging eklendi; hatalar artık sessizce yutulmuyor. `RoutineRepository.createRoutine` async/await ve hata loglaması düzeltildi.
+- **Web platform fallback'leri:** `useRoutines` (create/update/delete) ve `WorkoutDraftProvider.finishWorkout` web'de SQLite yerine in-memory state ile çalışır hale getirildi. Web'de "Database connection unavailable" hatası fırlatılmıyor.
+- **Kısıt:** Web tarayıcısında Expo SQLite çalışmaz; veriler yalnız session boyunca in-memory tutulur, sayfa yenilenince kaybolur. Kalıcı veri için Android/iOS gereklidir.
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (14 suites, 61 tests)
+
 ## 2026-08-18 — Web Platform Bug Fix
 
 ### Tamamlanan iş

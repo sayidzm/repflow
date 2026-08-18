@@ -96,11 +96,11 @@ kontrol edilmelidir.
 
 ## 5. Kod kalitesi kontrolleri
 
-Phase 1 sırasında standart komutlar tanımlanacaktır:
+Standart komutlar:
 
-- Type-check
-- Lint
-- Unit/component tests
+- `pnpm typecheck`
+- `pnpm lint`
+- `pnpm test`
 - Gerekirse test coverage raporu
 
 Coverage yüzdesi tek başına kalite hedefi değildir. Kritik domain ve repository davranışlarının kapsanması önceliklidir.

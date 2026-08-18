@@ -1,7 +1,7 @@
 # RepFlow — Session Handoff Document
 
 > Tarih: 2026-08-18  
-> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Türkçe UI Yerelleştirmesi ve Phase 6 (Stabilization & Polish) Tamamlandı. Phase 7 (MVP Release Candidate) kod tarafı doğrulaması tamamlandı; gerçek cihaz testi ve kullanım geri bildirimi bekliyor.
+> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Türkçe UI Yerelleştirmesi ve Phase 6 (Stabilization & Polish) Tamamlandı. Phase 7 (MVP Release Candidate) kod tarafı doğrulaması tamamlandı; gerçek cihaz testi ve kullanım geri bildirimi bekliyor. Web platformunda kalıcılık yoktur (SQLite native-only); web fallback'ler in-memory çalışır.
 
 ---
 
@@ -59,6 +59,12 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 - `WorkoutSetRow` 360–412 px aralığında taşmaya karşı responsive hale getirildi.
 - `src/components/ui/ErrorState.tsx` bileşeni eklendi.
 - `useReducedMotion` hook uyum testi eklendi.
+
+### Web Platform & Veri Kalıcılığı Düzeltmeleri (Phase 7 sırasında)
+- `SafeSQLiteProvider` web'de `SQLiteProvider`'ı atlayıp yalnız children render eder; web export hatası giderildi.
+- `WorkoutDraftProvider.finishWorkout`/`discardWorkout` try-catch, error state ve loglama eklendi.
+- `useRoutines` ve web'de workout finish in-memory fallback ile çalışır; "Database connection unavailable" artık fırlatılmaz.
+- **Kısıt:** Web'de SQLite çalışmaz; veriler session boyunca in-memory tutulur, kalıcı değildir. Kalıcı veri için Android/iOS gerekir.
 
 ---
 
