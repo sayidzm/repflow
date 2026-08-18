@@ -357,9 +357,14 @@ export function WorkoutDraftProvider({ children }: PropsWithChildren) {
 
   const finishWorkout = useCallback(async (): Promise<Workout | null> => {
     if (!repository) {
+      // Web platform fallback: clear in-memory workout
+      console.warn('[WorkoutDraftProvider] Web platform: workout finished (not persisted - SQLite unavailable on web)');
+      const completedWorkout = activeWorkout 
+        ? { ...activeWorkout, status: 'completed' as const, endedAt: Date.now() }
+        : null;
       setActiveWorkout(null);
       setInMemoryExercises([]);
-      return null;
+      return completedWorkout;
     }
 
     if (!activeWorkout) return null;

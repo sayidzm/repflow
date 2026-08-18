@@ -65,9 +65,23 @@ export function useRoutines() {
   const createRoutine = useCallback(
     async (input: CreateRoutineInput): Promise<Routine> => {
       if (!repository) {
-        const err = new Error('Database connection unavailable - SQLiteContext not initialized');
-        console.error('[useRoutines] createRoutine error:', err);
-        throw err;
+        // Web fallback: create routine in memory only (not persisted)
+        console.warn('[useRoutines] Web platform: routine created in memory only (SQLite unavailable)');
+        const mockRoutine: Routine = {
+          id: `routine_${Date.now()}`,
+          name: input.name,
+          exercises: (input.exerciseIds ?? []).map((id, idx) => ({
+            id: `re_${Date.now()}_${idx}`,
+            routineId: `routine_${Date.now()}`,
+            exerciseId: id,
+            sortOrder: idx,
+          })),
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          lastPerformed: null,
+        };
+        setRoutines((prev) => [mockRoutine, ...prev]);
+        return mockRoutine;
       }
       try {
         const created = await repository.create(input);
@@ -86,9 +100,30 @@ export function useRoutines() {
   const updateRoutine = useCallback(
     async (id: string, input: UpdateRoutineInput): Promise<Routine> => {
       if (!repository) {
-        const err = new Error('Database connection unavailable - SQLiteContext not initialized');
-        console.error('[useRoutines] updateRoutine error:', err);
-        throw err;
+        // Web fallback: update in memory
+        console.warn('[useRoutines] Web platform: routine updated in memory only');
+        setRoutines((prev) =>
+          prev.map((r) =>
+            r.id === id
+              ? {
+                  ...r,
+                  name: input.name ?? r.name,
+                  exercises: input.exerciseIds
+                    ? input.exerciseIds.map((eid, idx) => ({
+                        id: `re_${Date.now()}_${idx}`,
+                        routineId: r.id,
+                        exerciseId: eid,
+                        sortOrder: idx,
+                      }))
+                    : r.exercises,
+                  updatedAt: Date.now(),
+                }
+              : r,
+          ),
+        );
+        const updated = routines.find((r) => r.id === id);
+        if (!updated) throw new Error('Routine not found');
+        return updated;
       }
       try {
         const updated = await repository.update(id, input);
@@ -101,15 +136,16 @@ export function useRoutines() {
         throw err;
       }
     },
-    [repository, refresh],
+    [repository, refresh, routines],
   );
 
   const deleteRoutine = useCallback(
     async (id: string): Promise<void> => {
       if (!repository) {
-        const err = new Error('Database connection unavailable - SQLiteContext not initialized');
-        console.error('[useRoutines] deleteRoutine error:', err);
-        throw err;
+        // Web fallback: delete from memory
+        console.warn('[useRoutines] Web platform: routine deleted from memory only');
+        setRoutines((prev) => prev.filter((r) => r.id !== id));
+        return;
       }
       try {
         await repository.delete(id);
