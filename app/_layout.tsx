@@ -9,13 +9,12 @@ import {
 } from '@expo-google-fonts/manrope';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { SQLiteProvider } from 'expo-sqlite';
 import { useEffect } from 'react';
 import type { ViewStyle } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { SafeSQLiteProvider } from '@/providers/SafeSQLiteProvider';
 import { WorkoutDraftProvider } from '@/providers/WorkoutDraftProvider';
-import { initializeDatabase } from '@/database/initializeDatabase';
 import { colors } from '@/theme';
 
 void SplashScreen.preventAutoHideAsync();
@@ -33,7 +32,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <SQLiteProvider databaseName="repflow.db" onInit={initializeDatabase} useSuspense>
+      <SafeSQLiteProvider>
         <WorkoutDraftProvider>
           <Stack screenOptions={{ contentStyle: { backgroundColor: colors.ink } as ViewStyle, headerShown: false }}>
             <Stack.Screen name="(tabs)" />
@@ -41,7 +40,7 @@ export default function RootLayout() {
             <Stack.Screen name="exercises/select" options={{ presentation: 'modal' }} />
           </Stack>
         </WorkoutDraftProvider>
-      </SQLiteProvider>
+      </SafeSQLiteProvider>
     </SafeAreaProvider>
   );
 }

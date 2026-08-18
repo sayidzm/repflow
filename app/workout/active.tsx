@@ -1,6 +1,6 @@
 import { Ellipsis, Plus, Trash2, X } from 'lucide-react-native';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -15,10 +15,54 @@ import { ExerciseCard } from '@/features/workouts/components/ExerciseCard';
 import { useWorkoutDraft } from '@/providers/WorkoutDraftProvider';
 import { colors, radius, spacing, typography } from '@/theme';
 
+function formatElapsedTime(startedAt?: number): string {
+  if (!startedAt) return '00:00';
+  const elapsedSeconds = Math.max(0, Math.floor((Date.now() - startedAt) / 1000));
+  const hrs = Math.floor(elapsedSeconds / 3600);
+  const mins = Math.floor((elapsedSeconds % 3600) / 60);
+  const secs = elapsedSeconds % 60;
+
+  const pad = (n: number) => String(n).padStart(2, '0');
+  if (hrs > 0) {
+    return `${hrs}:${pad(mins)}:${pad(secs)}`;
+  }
+  return `${pad(mins)}:${pad(secs)}`;
+}
+
 export default function ActiveWorkoutScreen() {
   const insets = useSafeAreaInsets();
-  const { exercises, addSet, toggleSet, updateSet, clearDraft } = useWorkoutDraft();
+  const { activeWorkout, exercises, addSet, toggleSet, updateSet, discardWorkout, finishWorkout, startWorkout } = useWorkoutDraft();
   const [optionsVisible, setOptionsVisible] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(() => formatElapsedTime(activeWorkout?.startedAt));
+
+  // Auto-start workout if not started yet
+  useEffect(() => {
+    if (!activeWorkout) {
+      startWorkout();
+    }
+  }, [activeWorkout, startWorkout]);
+
+  // Timer tick
+  useEffect(() => {
+    if (!activeWorkout?.startedAt) return;
+
+    const interval = setInterval(() => {
+      setElapsedTime(formatElapsedTime(activeWorkout.startedAt));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [activeWorkout?.startedAt]);
+
+  const handleFinish = async () => {
+    if (exercises.length === 0) return;
+    await finishWorkout();
+    router.back();
+  };
+
+  const handleDiscard = async () => {
+    await discardWorkout();
+    router.back();
+  };
 
   return (
     <Screen bottomInset={false}>
@@ -28,9 +72,9 @@ export default function ActiveWorkoutScreen() {
             <X color={colors.text} size={19} />
           </IconButton>
           <View style={styles.headerCopy}>
-            <AppText style={styles.title}>Active Workout</AppText>
+            <AppText style={styles.title}>{activeWorkout?.name || 'Active Workout'}</AppText>
             <AppText style={styles.timer}>
-              00:00 <AppText style={styles.exerciseCount}>· {exercises.length} exercises</AppText>
+              {elapsedTime} <AppText style={styles.exerciseCount}>· {exercises.length} exercises</AppText>
             </AppText>
           </View>
           <IconButton accessibilityLabel="Workout options" onPress={() => setOptionsVisible(true)}>
@@ -62,10 +106,7 @@ export default function ActiveWorkoutScreen() {
           <Pressable
             accessibilityRole="button"
             disabled={exercises.length === 0}
-            onPress={() => {
-              clearDraft();
-              router.back();
-            }}
+            onPress={handleFinish}
             style={[styles.finish, exercises.length === 0 && styles.finishDisabled]}
           >
             <AppText style={styles.finishText}>Finish Workout</AppText>
@@ -84,10 +125,7 @@ export default function ActiveWorkoutScreen() {
               label: 'Discard Workout',
               icon: <Trash2 color="#ef4444" size={18} />,
               style: 'destructive',
-              onPress: () => {
-                clearDraft();
-                router.back();
-              },
+              onPress: handleDiscard,
             },
           ]}
           title="Workout Options"

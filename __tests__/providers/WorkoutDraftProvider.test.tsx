@@ -11,7 +11,7 @@ function TestComponent() {
       <Text testID="count">{exercises.length}</Text>
       {exercises.map((exercise) =>
         exercise.sets.map((set: { id: string; weight: string; reps: string; isCompleted: boolean }) => (
-          <Text key={set.id} testID={`set-${set.id}`}>
+          <Text key={set.id} testID="set-item">
             {`${set.weight}|${set.reps}|${set.isCompleted ? '1' : '0'}`}
           </Text>
         )),
@@ -30,9 +30,24 @@ function TestComponent() {
           })
         }
       />
-      <Pressable testID="remove-exercise" onPress={() => removeExercise('ex-1')} />
-      <Pressable testID="add-set" onPress={() => addSet('ex-1')} />
-      <Pressable testID="remove-set" onPress={() => removeSet('ex-1', 'ex-1-1')} />
+      <Pressable
+        testID="remove-exercise"
+        onPress={() => {
+          if (exercises[0]) removeExercise(exercises[0].id);
+        }}
+      />
+      <Pressable
+        testID="add-set"
+        onPress={() => {
+          if (exercises[0]) addSet(exercises[0].id);
+        }}
+      />
+      <Pressable
+        testID="remove-set"
+        onPress={() => {
+          if (exercises[0]?.sets[0]) removeSet(exercises[0].id, exercises[0].sets[0].id);
+        }}
+      />
       <Pressable
         testID="update-weight"
         onPress={() => {
@@ -108,18 +123,19 @@ describe('WorkoutDraftProvider', () => {
     await act(async () => {
       fireEvent.press(getByTestId('add-exercise'));
     });
-    const beforeSets = getAllByTestId(/^set-ex-1/);
+    const beforeSets = getAllByTestId('set-item');
 
     await act(async () => {
       fireEvent.press(getByTestId('add-set'));
     });
-    const afterSets = getAllByTestId(/^set-ex-1/);
+    const afterSets = getAllByTestId('set-item');
     expect(afterSets.length).toBe(beforeSets.length + 1);
 
     await act(async () => {
       fireEvent.press(getByTestId('update-weight'));
     });
-    expect(getByTestId('set-ex-1-1').props.children).toContain('100');
+    const updatedSets = getAllByTestId('set-item');
+    expect(updatedSets[0].props.children).toContain('100');
   });
 
   it('clears draft', async () => {

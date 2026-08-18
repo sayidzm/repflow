@@ -4,6 +4,39 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Phase 3 (Active Workout Core & Persistence)
+
+### Tamamlanan iş
+
+- `src/domain/models/workout.ts` katmanı ile `WorkoutStatus`, `WorkoutSetRecord`, `WorkoutExerciseRecord`, `Workout` domain tipleri tanımlandı.
+- `src/domain/validation/workoutValidation.ts` katmanı ile antrenman ismi, ağırlık/tekrar sınırları ve set tamamlama doğrulama kuralları eklendi.
+- `src/database/repositories/WorkoutRepository.ts` oluşturuldu (`getActiveWorkout`, `createActiveWorkout`, `addExerciseToActiveWorkout`, `removeExerciseFromActiveWorkout`, `addSetToActiveWorkout`, `removeSetFromActiveWorkout`, `updateSet`, `toggleSetCompleted`, `finishWorkout`, `discardWorkout`). Veritabanındaki `workouts_single_active_idx` partial index ile tek aktif antrenman kuralı korundu.
+- `WorkoutDraftProvider` SQLite context entegrasyonu ile otomatik workout recovery, anlık set güncelleme ve kalıcı SQLite kaydı ile güncellendi.
+- `app/workout/active.tsx` ekranına canlı zaman sayacı (timestamp farkı ile) ve antrenman bitirme/iptal akışları bağlandı.
+- `app/(tabs)/index.tsx` (Home Screen) ekranı aktif workout recovery/resume butonuna bağlandı.
+- Unit ve repository testleri yazıldı (`workoutValidation.test.ts`, `WorkoutRepository.test.ts`, `WorkoutDraftProvider.test.tsx`).
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (9 suites, 49 tests %100 PASSED)
+- `npx expo-doctor`: Passed (21/21 checks)
+
+## 2026-08-18 � Exercise Library Expansion
+
+### Tamamlanan i�
+
+- `src/database/seed/exercisesSeed.ts` dosyas� 17 egzersizden 229 temel v�cut geli�tirme egzersizine geni�letildi.
+- `Smith Machine` hareketleri "Machine", spesifik di�er hareketler ilgili ana kategoriye e�lenerek mevcut model s�n�rlar� korundu.
+- ID benzersizli�i (kebab-case) sa�land� ve veritaban� seed kurgusu korundu.
+
+### Do�rulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (7 suites, 34 tests)
+
 ## 2026-08-18 — Options Modal & Mock Data Cleanup
 
 ### Tamamlanan iş

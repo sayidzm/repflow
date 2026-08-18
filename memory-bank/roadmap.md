@@ -50,19 +50,19 @@ Durum: Completed
 
 ## Phase 3 — Active Workout Core
 
-Durum: Planned
+Durum: Completed
 
-- [ ] Tek active workout kuralı
-- [ ] Boş workout başlatma
-- [ ] Süre gösterimi
-- [ ] Workout'a egzersiz ekleme/çıkarma
-- [ ] Set ekleme/silme
-- [ ] Weight ve reps girişi
-- [ ] Set tamamlama
-- [ ] Her anlamlı değişikliği kalıcılaştırma
-- [ ] Uygulama açılışında recovery
-- [ ] Workout bitirme ve iptal
-- [ ] Kritik test paketi
+- [x] Tek active workout kuralı
+- [x] Boş workout başlatma
+- [x] Süre gösterimi
+- [x] Workout'a egzersiz ekleme/çıkarma
+- [x] Set ekleme/silme
+- [x] Weight ve reps girişi
+- [x] Set tamamlama
+- [x] Her anlamlı değişikliği kalıcılaştırma
+- [x] Uygulama açılışında recovery
+- [x] Workout bitirme ve iptal
+- [x] Kritik test paketi
 
 Çıkış kriteri: Boş workout akışı gerçek cihazda offline tamamlanabilir ve uygulama yeniden açıldığında veri kaybolmaz.
 

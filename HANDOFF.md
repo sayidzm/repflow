@@ -1,7 +1,7 @@
 # RepFlow — Session Handoff Document
 
 > Tarih: 2026-08-18  
-> Aktif Durum: Phase 1, Phase 2, Seçenek Modal'ları & Mock Veri Temizliği Tamamlandı. Phase 3 Hazırdır.
+> Aktif Durum: Phase 1, Phase 2, Phase 3 (Active Workout Core & Persistence) Tamamlandı. Phase 4 (Routines) Hazırdır.
 
 ---
 
@@ -10,12 +10,11 @@
 RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Native, Expo SDK 57, TypeScript strict mode, Expo Router v57, Expo SQLite).
 
 - **Git Remote:** `https://github.com/sayidzm/repflow.git` (Branch: `main`)
-- **Çalışma Ağacı:** Clean (tüm değişiklikler commit ve push edildi, `69854d4`)
-- **Doğrulama Sonucuları:**
+- **Doğrulama Sonuçları:**
   - `pnpm typecheck`: **PASSED** (0 hata)
   - `pnpm lint`: **PASSED** (0 hata, 0 uyarı)
-  - `pnpm test`: **PASSED** (7 test suite, 34 unit/repository/component test)
-  - `npx expo-doctor`: **PASSED** (21/21)
+  - `pnpm test`: **PASSED** (9 test suite, 49 unit/repository/component test %100 PASSED)
+  - `npx expo-doctor`: **PASSED** (21/21 checks)
   - `npx expo export --platform web`: **PASSED**
 
 ---
@@ -31,33 +30,30 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 
 ### Phase 2 — Exercise System & Persistence
 - `MuscleGroup` ve `ExerciseCategory` domain tipleri ile `exerciseValidation.ts` kuralları.
-- 17 varsayılan seed egzersiz (`exercisesSeed.ts`) ve SQLite migration entegrasyonu.
+- 229 varsayılan seed egzersiz (`exercisesSeed.ts`) ve SQLite migration entegrasyonu.
 - `ExerciseRepository` katmanı (`getAll`, `getById`, `getByName`, `create`, `update`, `archive`, `unarchive`).
 - `CreateExerciseModal` özel egzersiz ekleme arayüzü.
 - `useExercises` hook'u ile arama, filtreleme, özel egzersiz oluşturma ve arşivleme.
 
-### UI Action Sheets & Mock Data Cleanup
-- `ActionSheetModal` bileşeni ile tüm üç nokta (`...`) butonları işlevsel hale getirildi:
-  - **`ExerciseCard`:** "View Progress" ve "Remove Exercise".
-  - **`ActiveWorkoutScreen`:** "Add Exercise" ve "Discard Workout".
-  - **`ExerciseProgressScreen`:** "Archive Exercise".
-  - **`ExercisesScreen`:** Her egzersiz satırına üç nokta menüsü ("View Progress", "Archive Exercise").
-- Egzersizler (seed verisi / veritabanı egzersizleri) dışındaki sahte mock veriler (`referenceWorkout`, `referenceRoutines`, `referenceHistory` ve sahte set geçmişi) temizlendi.
-- Boş veri durumları için `EmptyState` bileşenleri bağlandı.
+### Phase 3 — Active Workout Core & Persistence
+- `WorkoutStatus`, `WorkoutSetRecord`, `WorkoutExerciseRecord`, `Workout` domain modelleri ile `workoutValidation.ts` doğrulama kuralları.
+- `WorkoutRepository` katmanı (`getActiveWorkout`, `createActiveWorkout`, `addExerciseToActiveWorkout`, `removeExerciseFromActiveWorkout`, `addSetToActiveWorkout`, `removeSetFromActiveWorkout`, `updateSet`, `toggleSetCompleted`, `finishWorkout`, `discardWorkout`).
+- `workouts_single_active_idx` partial unique index ile veritabanında aynı anda en fazla 1 aktif antrenman kuralı.
+- Timestamp tabanlı canlı süre hesabı ve otomatik workout recovery (uygulamadan çıkıp dönüldüğünde aktif antrenman restore edilir).
+- Antrenman bitirme (`status = completed`) ve antrenman iptal etme (`status = cancelled`) SQLite kaydı.
 
 ---
 
-## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 3)
+## 3. Yeni Agent İçin Başlangıç Talimatları (Phase 4)
 
 Bir sonraki oturumda başlayacak agent aşağıdaki adımları izlemelidir:
 
 1. `ai_guidelines.md` ve `memory-bank/README.md` oku.
 2. `memory-bank/current-state.md` ve `memory-bank/roadmap.md` dosyalarını incele.
-3. **Phase 3 — Active Workout Core & Persistence** görevine başla:
-   - Tek aktif workout kuralını veritabanında ve `WorkoutRepository` katmanında uygula (`workouts_single_active_idx`).
-   - Active workout başlatma (boş veya routine tabanlı), egzersiz/set ekleme, silme, weight/reps düzenleme ve set toggle SQLite yazma işlemlerini yap.
-   - Uygulama yeniden başlatıldığında aktif workout'ın otomatik recovery edilmesini sağla.
-   - `started_at` ve `ended_at` timestamp'leri ile workout süresini ve antrenman bitirme/iptal akışını bağla.
+3. **Phase 4 — Routines Core & Persistence** görevine başla:
+   - `RoutineRepository` katmanını oluştur (`routines` ve `routine_exercises` tabloları için CRUD sorguları).
+   - Routine oluşturma, düzenleme, silme ve egzersiz ekleme/çıkarma/sıralama işlemlerini SQLite'a bağla.
+   - Routine kartından tek dokunuşla hazır egzersiz dizilimi ve set taslağı ile yeni active workout başlatma akışını bağla.
 4. Kod değişikliklerinden sonra sırasıyla çalıştır ve doğrula:
    ```sh
    pnpm typecheck
