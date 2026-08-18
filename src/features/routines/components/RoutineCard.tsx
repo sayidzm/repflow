@@ -24,11 +24,11 @@ export function RoutineCard({ routine, onStart, onEdit, onDelete }: Props) {
       <View style={styles.heading}>
         <View style={styles.headingCopy}>
           <AppText style={styles.name}>{routine.name}</AppText>
-          <AppText style={styles.count}>{routine.exercises.length} Exercises</AppText>
+          <AppText style={styles.count}>{routine.exercises.length} Egzersiz</AppText>
         </View>
         {(onEdit || onDelete) && (
           <Pressable
-            accessibilityLabel={`${routine.name} options`}
+            accessibilityLabel={`${routine.name} seçenekleri`}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() => setOptionsVisible(true)}
@@ -41,20 +41,20 @@ export function RoutineCard({ routine, onStart, onEdit, onDelete }: Props) {
 
       <View style={styles.list}>
         {routine.exercises.length === 0 ? (
-          <AppText style={styles.emptyText}>No exercises added yet.</AppText>
+          <AppText style={styles.emptyText}>Henüz egzersiz eklenmedi.</AppText>
         ) : (
           routine.exercises.map((re) => (
             <AppText key={re.id} style={styles.exercise}>
-              {re.exerciseName || 'Exercise'}
+              {re.exerciseName || 'Egzersiz'}
             </AppText>
           ))
         )}
       </View>
 
       <View style={styles.footer}>
-        <AppText style={styles.last}>Last performed {routine.lastPerformed || 'Never'}</AppText>
-        <Pressable accessibilityLabel={`Start ${routine.name}`} accessibilityRole="button" onPress={onStart} style={styles.start}>
-          <AppText style={styles.startText}>Start</AppText>
+        <AppText style={styles.last}>En son {routine.lastPerformed || 'Hiç yapılmadı'}</AppText>
+        <Pressable accessibilityLabel={`${routine.name} başlat`} accessibilityRole="button" onPress={onStart} style={styles.start}>
+          <AppText style={styles.startText}>Başlat</AppText>
           <Play color={colors.ink} fill={colors.ink} size={13} />
         </Pressable>
       </View>
@@ -65,7 +65,7 @@ export function RoutineCard({ routine, onStart, onEdit, onDelete }: Props) {
           ...(onEdit
             ? [
                 {
-                  label: 'Edit Routine',
+                  label: 'Rutini Düzenle',
                   icon: <Edit3 color={colors.text} size={18} />,
                   onPress: onEdit,
                 },
@@ -74,7 +74,7 @@ export function RoutineCard({ routine, onStart, onEdit, onDelete }: Props) {
           ...(onDelete
             ? [
                 {
-                  label: 'Delete Routine',
+                  label: 'Rutini Sil',
                   icon: <Trash2 color="#ef4444" size={18} />,
                   style: 'destructive' as const,
                   onPress: onDelete,

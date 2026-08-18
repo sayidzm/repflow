@@ -81,7 +81,7 @@ export class WorkoutRepository {
       throw new Error('An active workout already exists');
     }
 
-    const name = validateWorkoutName(input?.name || 'Workout');
+    const name = validateWorkoutName(input?.name || 'Antrenman');
     const workoutId = generateId('w');
     const now = Date.now();
 

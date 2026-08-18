@@ -9,7 +9,7 @@ describe('ExerciseSearchBar', () => {
   it('calls onChangeText when typing', async () => {
     const onChangeText = jest.fn();
     const { getByLabelText } = await render(<ExerciseSearchBar value="" onChangeText={onChangeText} />);
-    fireEvent.changeText(getByLabelText('Search exercises'), 'bench');
+    fireEvent.changeText(getByLabelText('Egzersiz ara'), 'bench');
     expect(onChangeText).toHaveBeenCalledWith('bench');
   });
 });
@@ -17,7 +17,7 @@ describe('ExerciseSearchBar', () => {
 describe('MuscleGroupFilters', () => {
   it('renders all filter options', async () => {
     const { getByText } = await render(<MuscleGroupFilters selected="All" onSelect={jest.fn()} />);
-    expect(getByText('All')).toBeTruthy();
+    expect(getByText('Tümü')).toBeTruthy();
     expect(getByText('Chest')).toBeTruthy();
     expect(getByText('Back')).toBeTruthy();
     expect(getByText('Legs')).toBeTruthy();

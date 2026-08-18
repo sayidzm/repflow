@@ -188,7 +188,7 @@ describe('WorkoutRepository', () => {
 
     // Try completing set without weight & reps -> fails validation
     await expect(repo.toggleSetCompleted(setId, true)).rejects.toThrow(
-      'Valid weight is required to complete a set',
+      'Seti tamamlamak için geçerli bir ağırlık gereklidir',
     );
 
     // Update set with weight & reps

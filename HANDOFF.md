@@ -1,7 +1,7 @@
 # RepFlow — Session Handoff Document
 
 > Tarih: 2026-08-18  
-> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5 (History and Progress) Tamamlandı. Phase 6 (Stabilization) Hazırdır.
+> Aktif Durum: Phase 1, Phase 2, Phase 3, Phase 4, Phase 5 ve Türkçe UI Yerelleştirmesi Tamamlandı. Phase 6 (Stabilization) Hazırdır.
 
 ---
 
@@ -52,6 +52,9 @@ RepFlow, offline-first mobil Gym / Workout Tracking uygulamasıdır (React Nativ
 - `ProgressRepository` katmanı (`getExerciseProgress`: latest set, heaviest set, completed sessions).
 - `useHistory` ve `useProgress` hook'ları.
 - `app/(tabs)/history.tsx`, `app/history/[workoutId].tsx` ve `app/exercises/[exerciseId]/progress.tsx` ekranlarının veritabanı sorgularına bağlanması.
+
+### Turkish UI Localization
+- Egzersiz/hareket isimleri hariç tüm buton, tab çubuğu, başlık, etiket, tarih/süre ve modal metinleri Türkçe diline çevrildi.
 
 ---
 

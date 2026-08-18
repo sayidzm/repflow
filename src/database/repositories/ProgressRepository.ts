@@ -74,7 +74,7 @@ export class ProgressRepository {
           existing.heaviestSet = setItem;
         }
       } else {
-        const dateStr = new Date(r.started_at).toLocaleDateString('en-US', {
+        const dateStr = new Date(r.started_at).toLocaleDateString('tr-TR', {
           month: 'short',
           day: 'numeric',
         });

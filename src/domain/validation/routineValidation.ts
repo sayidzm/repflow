@@ -1,10 +1,10 @@
 export function validateRoutineName(name: string): string {
   const trimmed = name.trim();
   if (!trimmed) {
-    throw new Error('Routine name cannot be empty');
+    throw new Error('Rutin adı boş olamaz');
   }
   if (trimmed.length > 50) {
-    throw new Error('Routine name cannot exceed 50 characters');
+    throw new Error('Rutin adı 50 karakteri geçemez');
   }
   return trimmed;
 }

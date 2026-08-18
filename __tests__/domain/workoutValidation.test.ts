@@ -7,7 +7,7 @@ describe('workoutValidation', () => {
     });
 
     it('throws error when name is empty or whitespace', () => {
-      expect(() => validateWorkoutName('   ')).toThrow('Workout name cannot be empty');
+      expect(() => validateWorkoutName('   ')).toThrow('Antrenman adı boş olamaz');
     });
   });
 
@@ -19,15 +19,15 @@ describe('workoutValidation', () => {
     });
 
     it('rejects negative weight', () => {
-      expect(() => validateSetInput(-5, 10)).toThrow('Weight must be a non-negative number');
+      expect(() => validateSetInput(-5, 10)).toThrow('Ağırlık negatif olmayan bir sayı olmalıdır');
     });
 
     it('rejects non-integer reps', () => {
-      expect(() => validateSetInput(60, 10.5)).toThrow('Reps must be a non-negative integer');
+      expect(() => validateSetInput(60, 10.5)).toThrow('Tekrar sayısı negatif olmayan bir tam sayı olmalıdır');
     });
 
     it('rejects negative reps', () => {
-      expect(() => validateSetInput(60, -1)).toThrow('Reps must be a non-negative integer');
+      expect(() => validateSetInput(60, -1)).toThrow('Tekrar sayısı negatif olmayan bir tam sayı olmalıdır');
     });
   });
 
@@ -38,11 +38,11 @@ describe('workoutValidation', () => {
     });
 
     it('rejects completion when weight is null', () => {
-      expect(() => validateSetCompletion(null, 10)).toThrow('Valid weight is required to complete a set');
+      expect(() => validateSetCompletion(null, 10)).toThrow('Seti tamamlamak için geçerli bir ağırlık gereklidir');
     });
 
     it('rejects completion when reps is null', () => {
-      expect(() => validateSetCompletion(60, null)).toThrow('Valid reps are required to complete a set');
+      expect(() => validateSetCompletion(60, null)).toThrow('Seti tamamlamak için geçerli bir tekrar sayısı gereklidir');
     });
   });
 });

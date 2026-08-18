@@ -6,11 +6,11 @@ describe('routineValidation', () => {
   });
 
   it('throws error when routine name is empty', () => {
-    expect(() => validateRoutineName('   ')).toThrow('Routine name cannot be empty');
+    expect(() => validateRoutineName('   ')).toThrow('Rutin adı boş olamaz');
   });
 
   it('throws error when routine name exceeds 50 chars', () => {
     const longName = 'A'.repeat(51);
-    expect(() => validateRoutineName(longName)).toThrow('Routine name cannot exceed 50 characters');
+    expect(() => validateRoutineName(longName)).toThrow('Rutin adı 50 karakteri geçemez');
   });
 });

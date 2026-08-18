@@ -59,35 +59,35 @@ export function CreateRoutineModal({ visible, onClose, onSubmit, initialRoutine 
       <View style={styles.overlay}>
         <View style={[styles.container, { paddingTop: Math.max(insets.top, spacing.md), paddingBottom: Math.max(insets.bottom, spacing.md) }]}>
           <View style={styles.header}>
-            <IconButton accessibilityLabel="Close routine editor" onPress={onClose}>
+            <IconButton accessibilityLabel="Rutin düzenleyiciyi kapat" onPress={onClose}>
               <X color={colors.text} size={20} />
             </IconButton>
-            <AppText style={styles.title}>{initialRoutine ? 'Edit Routine' : 'New Routine'}</AppText>
+            <AppText style={styles.title}>{initialRoutine ? 'Rutini Düzenle' : 'Yeni Rutin'}</AppText>
             <Pressable
               accessibilityRole="button"
               disabled={isSubmitting || !name.trim()}
               onPress={handleSave}
               style={[styles.saveBtn, (!name.trim() || isSubmitting) && styles.saveBtnDisabled]}
             >
-              <AppText style={styles.saveBtnText}>{isSubmitting ? 'Saving...' : 'Save'}</AppText>
+              <AppText style={styles.saveBtnText}>{isSubmitting ? 'Kaydediliyor...' : 'Kaydet'}</AppText>
             </Pressable>
           </View>
 
           {error && <AppText style={styles.errorText}>{error}</AppText>}
 
           <View style={styles.formGroup}>
-            <AppText style={styles.label}>ROUTINE NAME</AppText>
+            <AppText style={styles.label}>RUTİN ADI</AppText>
             <TextInput
-              accessibilityLabel="Routine name"
+              accessibilityLabel="Rutin adı"
               onChangeText={setName}
-              placeholder="e.g. Upper Body Power"
+              placeholder="Örn. Üst Vücut Güç"
               placeholderTextColor={colors.muted}
               style={styles.input}
               value={name}
             />
           </View>
 
-          <AppText style={styles.sectionLabel}>SELECT EXERCISES ({selectedIds.length})</AppText>
+          <AppText style={styles.sectionLabel}>EGZERSİZ SEÇ ({selectedIds.length})</AppText>
           <ScrollView contentContainerStyle={styles.exerciseList}>
             {allExercises.map((ex) => {
               const isSelected = selectedIds.includes(ex.id);

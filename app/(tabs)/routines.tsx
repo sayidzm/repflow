@@ -53,16 +53,16 @@ export default function RoutinesScreen() {
           action={
             <Pressable accessibilityRole="button" onPress={handleOpenCreate} style={styles.newButton}>
               <Plus color={colors.text} size={16} />
-              <AppText style={styles.newText}>New</AppText>
+              <AppText style={styles.newText}>Yeni</AppText>
             </Pressable>
           }
-          label="YOUR LIBRARY"
-          title="Routines"
+          label="KÜTÜPHANEN"
+          title="Rutinler"
         />
 
         {routines.length === 0 ? (
           <View style={styles.emptyContainer}>
-            <EmptyState message="Tap '+ New' above to build a routine." title="No routines created yet" />
+            <EmptyState message="Rutin oluşturmak için yukarıdaki '+ Yeni' butonuna dokunun." title="Henüz rutin oluşturulmadı" />
           </View>
         ) : (
           routines.map((routine) => (

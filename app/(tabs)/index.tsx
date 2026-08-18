@@ -38,29 +38,29 @@ export default function HomeScreen() {
               <Flame color={colors.accent} fill={colors.accent} size={18} />
               <AppText style={styles.brandText}>REP</AppText>
             </View>
-            <Label>TODAY</Label>
+            <Label>BUGÜN</Label>
           </View>
-          <IconButton accessibilityLabel="Settings">
+          <IconButton accessibilityLabel="Ayarlar">
             <Settings2 color={colors.text} size={18} />
           </IconButton>
         </View>
 
         <View style={styles.intro}>
           <AppText style={styles.headline}>
-            {hasActiveWorkout ? `Workout in\nprogress.` : `Ready when\nyou are.`}
+            {hasActiveWorkout ? `Antrenman\ndevam ediyor.` : `Hazır olduğunda\nbaşla.`}
           </AppText>
           <AppText style={styles.subtitle}>
             {hasActiveWorkout
-              ? `You have an active session (${activeWorkout?.name || 'Workout'}).`
-              : 'Your training log, always on this device.'}
+              ? `Aktif bir oturumun var (${activeWorkout?.name || 'Antrenman'}).`
+              : 'Antrenman kaydın her zaman bu cihazda.'}
           </AppText>
         </View>
 
         {hasActiveWorkout ? (
           <Pressable accessibilityRole="button" onPress={() => router.push('/workout/active')} style={styles.resume}>
             <View>
-              <AppText style={styles.startTitle}>Resume Workout</AppText>
-              <AppText style={styles.resumeSubtitle}>{activeWorkout?.name || 'Active session in progress'}</AppText>
+              <AppText style={styles.startTitle}>Antrenmana Devam Et</AppText>
+              <AppText style={styles.resumeSubtitle}>{activeWorkout?.name || 'Aktif oturum devam ediyor'}</AppText>
             </View>
             <View style={styles.play}>
               <RefreshCw color={colors.ink} size={17} />
@@ -69,8 +69,8 @@ export default function HomeScreen() {
         ) : (
           <Pressable accessibilityRole="button" onPress={handleStartEmptyWorkout} style={styles.start}>
             <View>
-              <AppText style={styles.startTitle}>Start Workout</AppText>
-              <AppText style={styles.startSubtitle}>Log a session from scratch</AppText>
+              <AppText style={styles.startTitle}>Antrenman Başlat</AppText>
+              <AppText style={styles.startSubtitle}>Sıfırdan bir oturum kaydet</AppText>
             </View>
             <View style={styles.play}>
               <Play color={colors.ink} fill={colors.ink} size={17} />
@@ -78,33 +78,33 @@ export default function HomeScreen() {
           </Pressable>
         )}
 
-        <Label style={styles.sectionLabel}>QUICK START</Label>
+        <Label style={styles.sectionLabel}>HIZLI BAŞLANGIÇ</Label>
         <View style={styles.quickRow}>
           <Pressable accessibilityRole="button" onPress={handleStartEmptyWorkout} style={styles.quick}>
             <Plus color={colors.accent} size={18} />
-            <AppText style={styles.quickText}>{hasActiveWorkout ? `Resume\nWorkout` : `Empty\nWorkout`}</AppText>
+            <AppText style={styles.quickText}>{hasActiveWorkout ? `Antrenmana\nDevam Et` : `Boş\nAntrenman`}</AppText>
           </Pressable>
           <Pressable accessibilityRole="button" onPress={() => router.push('/routines')} style={styles.quick}>
             <ListChecks color={colors.accent} size={18} />
-            <AppText style={styles.quickText}>Select{`\n`}Routine</AppText>
+            <AppText style={styles.quickText}>Rutin{`\n`}Seç</AppText>
           </Pressable>
         </View>
 
         <View style={styles.routinesHeading}>
-          <Label>YOUR ROUTINES</Label>
+          <Label>RUTİNLERİN</Label>
           <Pressable accessibilityRole="button" onPress={() => router.push('/routines')}>
-            <AppText style={styles.link}>See all</AppText>
+            <AppText style={styles.link}>Tümünü gör</AppText>
           </Pressable>
         </View>
 
         {routines.length === 0 ? (
           <View style={styles.emptyRoutines}>
-            <AppText style={styles.emptyRoutinesText}>No routines created yet.</AppText>
+            <AppText style={styles.emptyRoutinesText}>Henüz rutin oluşturulmadı.</AppText>
           </View>
         ) : (
           routines.map((routine) => (
             <Pressable
-              accessibilityLabel={`Open ${routine.name}`}
+              accessibilityLabel={`${routine.name} aç`}
               accessibilityRole="button"
               key={routine.id}
               onPress={() => handleStartRoutine(routine)}
@@ -114,7 +114,7 @@ export default function HomeScreen() {
               <View style={styles.routineCopy}>
                 <AppText style={styles.routineName}>{routine.name}</AppText>
                 <AppText style={styles.routineMeta}>
-                  {routine.exercises.length} exercises · Last {routine.lastPerformed || 'Never'}
+                  {routine.exercises.length} egzersiz · En son {routine.lastPerformed || 'Hiç yapılmadı'}
                 </AppText>
               </View>
             </Pressable>

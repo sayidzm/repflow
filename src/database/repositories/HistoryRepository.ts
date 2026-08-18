@@ -52,15 +52,15 @@ type SetRow = {
 };
 
 export function formatDuration(durationSeconds: number | null): string {
-  if (!durationSeconds || durationSeconds <= 0) return '0 min';
+  if (!durationSeconds || durationSeconds <= 0) return '0 dk';
   const mins = Math.floor(durationSeconds / 60);
   const hrs = Math.floor(mins / 60);
   const remMins = mins % 60;
 
   if (hrs > 0) {
-    return `${hrs}h ${remMins}m`;
+    return `${hrs}sa ${remMins}dk`;
   }
-  return `${mins} min`;
+  return `${mins} dk`;
 }
 
 export function formatDateLabel(timestamp: number): string {
@@ -79,11 +79,11 @@ export function formatDateLabel(timestamp: number): string {
     date.getMonth() === yesterday.getMonth() &&
     date.getFullYear() === yesterday.getFullYear();
 
-  if (isToday) return 'TODAY';
-  if (isYesterday) return 'YESTERDAY';
+  if (isToday) return 'BUGÜN';
+  if (isYesterday) return 'DÜN';
 
   return date
-    .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    .toLocaleDateString('tr-TR', { month: 'short', day: 'numeric', year: 'numeric' })
     .toUpperCase();
 }
 
@@ -113,7 +113,7 @@ export class HistoryRepository {
       }
 
       const exerciseCount = exRows.length;
-      const detail = `${exerciseCount} exercise${exerciseCount === 1 ? '' : 's'} · ${totalSets} set${totalSets === 1 ? '' : 's'}`;
+      const detail = `${exerciseCount} egzersiz · ${totalSets} set`;
       const duration = formatDuration(wRow.duration_seconds);
       const dateLabel = formatDateLabel(wRow.started_at);
 

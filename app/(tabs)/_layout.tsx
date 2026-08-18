@@ -17,10 +17,10 @@ export default function TabLayout() {
         tabBarStyle: { backgroundColor: colors.panel, borderTopColor: colors.line, height: 68, paddingBottom: 8, paddingTop: 7 } as ViewStyle,
       }}
     >
-      <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ color }) => <Home {...iconProps} color={color} /> }} />
-      <Tabs.Screen name="routines" options={{ title: 'Routines', tabBarIcon: ({ color }) => <ListChecks {...iconProps} color={color} /> }} />
-      <Tabs.Screen name="history" options={{ title: 'History', tabBarIcon: ({ color }) => <Timer {...iconProps} color={color} /> }} />
-      <Tabs.Screen name="exercises" options={{ title: 'Exercises', tabBarIcon: ({ color }) => <Dumbbell {...iconProps} color={color} /> }} />
+      <Tabs.Screen name="index" options={{ title: 'Ana Sayfa', tabBarIcon: ({ color }) => <Home {...iconProps} color={color} /> }} />
+      <Tabs.Screen name="routines" options={{ title: 'Rutinler', tabBarIcon: ({ color }) => <ListChecks {...iconProps} color={color} /> }} />
+      <Tabs.Screen name="history" options={{ title: 'Geçmiş', tabBarIcon: ({ color }) => <Timer {...iconProps} color={color} /> }} />
+      <Tabs.Screen name="exercises" options={{ title: 'Egzersizler', tabBarIcon: ({ color }) => <Dumbbell {...iconProps} color={color} /> }} />
     </Tabs>
   );
 }

@@ -70,8 +70,8 @@ export function CreateExerciseModal({ visible, onClose, onSubmit }: CreateExerci
       <View style={styles.overlay}>
         <View style={[styles.container, { paddingBottom: Math.max(insets.bottom, spacing.md) }]}>
           <View style={styles.header}>
-            <AppText style={styles.title}>New Custom Exercise</AppText>
-            <IconButton accessibilityLabel="Close" onPress={handleClose}>
+            <AppText style={styles.title}>Yeni Özel Egzersiz</AppText>
+            <IconButton accessibilityLabel="Kapat" onPress={handleClose}>
               <X color={colors.text} size={20} />
             </IconButton>
           </View>
@@ -80,15 +80,15 @@ export function CreateExerciseModal({ visible, onClose, onSubmit }: CreateExerci
             {error ? <AppText style={styles.errorText}>{error}</AppText> : null}
 
             <View style={styles.field}>
-              <Label>EXERCISE NAME</Label>
+              <Label>EGZERSİZ ADI</Label>
               <TextInput
-                accessibilityLabel="Exercise name input"
+                accessibilityLabel="Egzersiz adı girişi"
                 autoCapitalize="words"
                 onChangeText={(text) => {
                   setName(text);
                   if (error) setError(null);
                 }}
-                placeholder="e.g. Incline Cable Press"
+                placeholder="Örn. Incline Cable Press"
                 placeholderTextColor={colors.muted}
                 style={styles.input}
                 value={name}
@@ -96,7 +96,7 @@ export function CreateExerciseModal({ visible, onClose, onSubmit }: CreateExerci
             </View>
 
             <View style={styles.field}>
-              <Label>MUSCLE GROUP</Label>
+              <Label>KAS GRUBU</Label>
               <View style={styles.chipRow}>
                 {MUSCLE_GROUPS.map((group) => {
                   const isSelected = muscleGroup === group;
@@ -118,7 +118,7 @@ export function CreateExerciseModal({ visible, onClose, onSubmit }: CreateExerci
             </View>
 
             <View style={styles.field}>
-              <Label>CATEGORY</Label>
+              <Label>KATEGORİ</Label>
               <View style={styles.chipRow}>
                 {EXERCISE_CATEGORIES.map((cat) => {
                   const isSelected = category === cat;
@@ -148,7 +148,7 @@ export function CreateExerciseModal({ visible, onClose, onSubmit }: CreateExerci
               style={[styles.saveButton, submitting && styles.disabled]}
             >
               <AppText style={styles.saveButtonText}>
-                {submitting ? 'Saving...' : 'Save Exercise'}
+                {submitting ? 'Kaydediliyor...' : 'Egzersizi Kaydet'}
               </AppText>
             </Pressable>
           </View>

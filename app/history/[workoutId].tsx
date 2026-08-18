@@ -17,7 +17,7 @@ import { colors, radius, spacing, typography } from '@/theme';
 
 function formatDate(timestamp: number): string {
   const date = new Date(timestamp);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('tr-TR', {
     weekday: 'long',
     month: 'short',
     day: 'numeric',
@@ -64,11 +64,11 @@ export default function WorkoutDetailScreen() {
       <Screen>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.header}>
-            <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+            <IconButton accessibilityLabel="Geri" onPress={() => router.back()}>
               <ArrowLeft color={colors.text} size={19} />
             </IconButton>
           </View>
-          <EmptyState message="The requested workout could not be found." title="Workout not found" />
+          <EmptyState message="İstenen antrenman bulunamadı." title="Antrenman bulunamadı" />
         </ScrollView>
       </Screen>
     );
@@ -78,10 +78,10 @@ export default function WorkoutDetailScreen() {
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.header}>
-          <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+          <IconButton accessibilityLabel="Geri" onPress={() => router.back()}>
             <ArrowLeft color={colors.text} size={19} />
           </IconButton>
-          <Label>WORKOUT DETAIL</Label>
+          <Label>ANTRENMAN DETAYI</Label>
           <View style={styles.spacer} />
         </View>
 
@@ -103,7 +103,7 @@ export default function WorkoutDetailScreen() {
                 <View key={set.id} style={styles.setRow}>
                   <AppText style={styles.setNumber}>{index + 1}</AppText>
                   <AppText style={styles.setValue}>
-                    {weightStr} × {repsStr} {set.isCompleted ? '' : '(Incomplete)'}
+                    {weightStr} × {repsStr} {set.isCompleted ? '' : '(Tamamlanmadı)'}
                   </AppText>
                 </View>
               );

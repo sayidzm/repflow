@@ -23,7 +23,9 @@ export function MuscleGroupFilters({ selected, onSelect }: { selected: MuscleFil
             onPress={() => onSelect(filter)}
             style={[styles.chip, isSelected && styles.selected]}
           >
-            <AppText style={[styles.text, isSelected && styles.selectedText]}>{filter}</AppText>
+            <AppText style={[styles.text, isSelected && styles.selectedText]}>
+              {filter === 'All' ? 'Tümü' : filter}
+            </AppText>
           </Pressable>
         );
       })}

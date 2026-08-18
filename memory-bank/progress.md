@@ -4,6 +4,27 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Turkish Localization (Uygulama Yerelleştirmesi)
+
+### Tamamlanan iş
+
+- Egzersiz/hareket isimleri (`exercisesSeed.ts` ve 229 hareket veritabanı kaydı) ile domain enum değerleri (kas grupları & kategoriler) KORUNARAK tüm uygulama arayüzü Türkçe diline çevrildi:
+  - Tab çubuğu: `Ana Sayfa`, `Rutinler`, `Geçmiş`, `Egzersizler`.
+  - Ana Sayfa: "Hazır olduğunda başla", "Antrenman devam ediyor", "Antrenman Başlat", "Boş Antrenman", "Rutin Seç", "Rutinlerin".
+  - Aktif Antrenman: "Aktif Antrenman", "Egzersiz Ekle", "Antrenmanı Bitir", "Antrenmanı İptal Et", set başlıkları (`SET`, `ÖNCEKİ`, `KG`, `TEKRAR`).
+  - Egzersiz Seçici & Kütüphane: "Egzersiz Ekle", "Egzersiz Seç", "Özel", "Tüm Egzersizler", "Egzersizi Arşivle", "Gelişimi Görüntüle".
+  - Rutinler: "Yeni Rutin", "Rutini Düzenle", "Rutini Sil", "Başlat", "Hiç yapılmadı", "X gün önce".
+  - Geçmiş & Detay: "Geçmiş", "Antrenman Kaydı", "BUGÜN", "DÜN", "Antrenman Detayı", "Gelişim", "Son Set", "En Ağır Set".
+- Doğrulama hata mesajları (validation errors) Türkçe olarak güncellendi.
+- Unit ve integration testleri Türkçe UI label'ları ile uyumlu hale getirildi.
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (13 suites, 60 tests %100 PASSED)
+- `npx expo-doctor`: Passed (21/21 checks)
+
 ## 2026-08-18 — Phase 5 (History and Progress System)
 
 ### Tamamlanan iş

@@ -21,15 +21,15 @@ export default function HistoryScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
           action={
-            <IconButton accessibilityLabel="History settings">
+            <IconButton accessibilityLabel="Geçmiş ayarları">
               <Settings2 color={colors.text} size={18} />
             </IconButton>
           }
-          label="TRAINING LOG"
-          title="History"
+          label="ANTRENMAN KAYDI"
+          title="Geçmiş"
         />
         {groups.length === 0 ? (
-          <EmptyState message="Completed workouts will appear here." title="No workouts logged yet" />
+          <EmptyState message="Tamamlanan antrenmanlar burada görünecektir." title="Henüz antrenman kaydedilmedi" />
         ) : (
           groups.map((group) => (
             <View key={group.date} style={styles.group}>

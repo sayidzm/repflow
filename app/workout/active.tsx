@@ -68,23 +68,23 @@ export default function ActiveWorkoutScreen() {
     <Screen bottomInset={false}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
         <View style={styles.header}>
-          <IconButton accessibilityLabel="Close workout" onPress={() => router.back()}>
+          <IconButton accessibilityLabel="Antrenmanı kapat" onPress={() => router.back()}>
             <X color={colors.text} size={19} />
           </IconButton>
           <View style={styles.headerCopy}>
-            <AppText style={styles.title}>{activeWorkout?.name || 'Active Workout'}</AppText>
+            <AppText style={styles.title}>{activeWorkout?.name || 'Aktif Antrenman'}</AppText>
             <AppText style={styles.timer}>
-              {elapsedTime} <AppText style={styles.exerciseCount}>· {exercises.length} exercises</AppText>
+              {elapsedTime} <AppText style={styles.exerciseCount}>· {exercises.length} egzersiz</AppText>
             </AppText>
           </View>
-          <IconButton accessibilityLabel="Workout options" onPress={() => setOptionsVisible(true)}>
+          <IconButton accessibilityLabel="Antrenman seçenekleri" onPress={() => setOptionsVisible(true)}>
             <Ellipsis color={colors.text} size={19} />
           </IconButton>
         </View>
 
         <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 112 + insets.bottom }]} keyboardShouldPersistTaps="handled">
           {exercises.length === 0 ? (
-            <EmptyState message="Tap 'Add Exercise' below to add movements to your workout." title="No exercises added" />
+            <EmptyState message="Antrenmanına hareket eklemek için aşağıdaki 'Egzersiz Ekle' butonuna dokun." title="Henüz egzersiz eklenmedi" />
           ) : (
             exercises.map((exercise) => (
               <ExerciseCard
@@ -101,7 +101,7 @@ export default function ActiveWorkoutScreen() {
         <View style={[styles.actions, { paddingBottom: Math.max(insets.bottom, spacing.sm) }]}>
           <Pressable accessibilityRole="button" onPress={() => router.push('/exercises/select')} style={styles.addExercise}>
             <Plus color={colors.text} size={17} />
-            <AppText style={styles.addText}>Add Exercise</AppText>
+            <AppText style={styles.addText}>Egzersiz Ekle</AppText>
           </Pressable>
           <Pressable
             accessibilityRole="button"
@@ -109,7 +109,7 @@ export default function ActiveWorkoutScreen() {
             onPress={handleFinish}
             style={[styles.finish, exercises.length === 0 && styles.finishDisabled]}
           >
-            <AppText style={styles.finishText}>Finish Workout</AppText>
+            <AppText style={styles.finishText}>Antrenmanı Bitir</AppText>
           </Pressable>
         </View>
 
@@ -117,18 +117,18 @@ export default function ActiveWorkoutScreen() {
           onClose={() => setOptionsVisible(false)}
           options={[
             {
-              label: 'Add Exercise',
+              label: 'Egzersiz Ekle',
               icon: <Plus color={colors.text} size={18} />,
               onPress: () => router.push('/exercises/select'),
             },
             {
-              label: 'Discard Workout',
+              label: 'Antrenmanı İptal Et',
               icon: <Trash2 color="#ef4444" size={18} />,
               style: 'destructive',
               onPress: handleDiscard,
             },
           ]}
-          title="Workout Options"
+          title="Antrenman Seçenekleri"
           visible={optionsVisible}
         />
       </KeyboardAvoidingView>

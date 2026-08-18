@@ -1,11 +1,13 @@
 # Current State
 
 > Son güncelleme: 2026-08-18  
-> Aktif faz: Phase 5 (History and Progress System) Completed  
-> Genel durum: History & Progress SQLite repositories, History screen & Workout Detail screen, Exercise Progress screen and 60 unit/repository/component tests passed (%100).
+> Aktif faz: Phase 5 (History and Progress System) Completed + Full Turkish UI Localization  
+> Genel durum: Full Turkish UI translation applied (excluding exercise names/muscle groups), History & Progress SQLite repositories, History screen & Workout Detail screen, Exercise Progress screen and 60 unit/repository/component tests passed (%100).
 
 ## 1. Tamamlananlar
 
+- **Türkçe Uygulama Arayüzü (Localization):**
+  - Egzersiz/hareket isimleri ile kas grubu değerleri hariç tüm navigasyon, buton, başlık, etiket, tarih/süre ve modal metinleri Türkçe diline çevrildi.
 - **History and Progress System (Phase 5):**
   - `HistoryRepository` katmanı ile tamamlanmış antrenmanların (`status = completed`) tarih bazında gruplanarak listelenmesi ve antrenman detaylarının SQLite'tan çekilmesi sağlandı.
   - `ProgressRepository` katmanı ile egzersiz bazlı geçmiş setlerin, son tamamlanan setin ve antrenman başına en ağır setin hesabı bağlandı.
@@ -34,12 +36,13 @@
 - Expo SQLite (`SQLiteProvider` + `initializeDatabase` + `ExerciseRepository` + `WorkoutRepository` + `RoutineRepository` + `HistoryRepository` + `ProgressRepository`)
 - Single active workout constraint (`workouts_single_active_idx`).
 - Dynamic Exercise Progress calculation: PR/1RM adlandırması olmadan sade en ağır set özeti.
+- UI Dili: Türkçe (Egzersiz/hareket adları hariç).
 
 ## 4. Bilinen riskler ve kısıtlar
 
 | Risk | Mevcut yaklaşım |
 | --- | --- |
-| Yok | Bütün MVP işlevsel fazları (Phase 1-5) veritabanına bağlandı ve doğrultuldu. |
+| Yok | Bütün MVP işlevsel fazları (Phase 1-5) veritabanına bağlandı ve Türkçe arayüze taşındı. |
 
 ## 5. Sıradaki mantıklı adım
 

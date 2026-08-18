@@ -30,18 +30,18 @@ function generateId(prefix: string): string {
 }
 
 function formatRelativeTime(timestamp: number | null): string {
-  if (!timestamp) return 'Never';
+  if (!timestamp) return 'Hiç yapılmadı';
   const diffMs = Date.now() - timestamp;
   const diffMinutes = Math.floor(diffMs / (1000 * 60));
   const diffHours = Math.floor(diffMinutes / 60);
   const diffDays = Math.floor(diffHours / 24);
 
-  if (diffMinutes < 1) return 'Just now';
-  if (diffMinutes < 60) return `${diffMinutes}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays === 1) return 'Yesterday';
-  if (diffDays < 30) return `${diffDays}d ago`;
-  return new Date(timestamp).toLocaleDateString();
+  if (diffMinutes < 1) return 'Az önce';
+  if (diffMinutes < 60) return `${diffMinutes}dk önce`;
+  if (diffHours < 24) return `${diffHours}sa önce`;
+  if (diffDays === 1) return 'Dün';
+  if (diffDays < 30) return `${diffDays}gün önce`;
+  return new Date(timestamp).toLocaleDateString('tr-TR');
 }
 
 export class RoutineRepository {

@@ -10,10 +10,10 @@ export function ExerciseSearchBar({ value, onChangeText }: { value: string; onCh
     <View style={styles.container}>
       <Search color={colors.muted} size={18} strokeWidth={1.8} />
       <TextInput
-        accessibilityLabel="Search exercises"
+        accessibilityLabel="Egzersiz ara"
         autoCapitalize="none"
         onChangeText={onChangeText}
-        placeholder="Search exercises"
+        placeholder="Egzersiz ara"
         placeholderTextColor={colors.muted}
         returnKeyType="search"
         style={styles.input}

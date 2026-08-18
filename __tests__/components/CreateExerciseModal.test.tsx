@@ -18,8 +18,8 @@ describe('CreateExerciseModal', () => {
     const { getByText, getByPlaceholderText } = await renderWithSafeArea(
       <CreateExerciseModal onClose={jest.fn()} onSubmit={jest.fn()} visible={true} />,
     );
-    expect(getByText('New Custom Exercise')).toBeTruthy();
-    expect(getByPlaceholderText('e.g. Incline Cable Press')).toBeTruthy();
+    expect(getByText('Yeni Özel Egzersiz')).toBeTruthy();
+    expect(getByPlaceholderText('Örn. Incline Cable Press')).toBeTruthy();
   });
 
   it('validates empty name on submission', async () => {
@@ -29,10 +29,10 @@ describe('CreateExerciseModal', () => {
     );
 
     await act(async () => {
-      fireEvent.press(getByText('Save Exercise'));
+      fireEvent.press(getByText('Egzersizi Kaydet'));
     });
 
-    expect(getByText('Exercise name cannot be empty.')).toBeTruthy();
+    expect(getByText('Egzersiz adı boş olamaz.')).toBeTruthy();
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
@@ -44,13 +44,13 @@ describe('CreateExerciseModal', () => {
     );
 
     await act(async () => {
-      fireEvent.changeText(getByLabelText('Exercise name input'), 'Hammer Curl');
+      fireEvent.changeText(getByLabelText('Egzersiz adı girişi'), 'Hammer Curl');
       fireEvent.press(getByText('Arms'));
       fireEvent.press(getByText('Dumbbell'));
     });
 
     await act(async () => {
-      fireEvent.press(getByText('Save Exercise'));
+      fireEvent.press(getByText('Egzersizi Kaydet'));
     });
 
     expect(onSubmit).toHaveBeenCalledWith({

@@ -43,9 +43,9 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
 
       <View style={styles.labels}>
         <AppText style={[styles.label, styles.setLabel]}>SET</AppText>
-        <AppText style={[styles.label, styles.previousLabel]}>PREVIOUS</AppText>
+        <AppText style={[styles.label, styles.previousLabel]}>ÖNCEKİ</AppText>
         <AppText style={styles.label}>KG</AppText>
-        <AppText style={styles.label}>REPS</AppText>
+        <AppText style={styles.label}>TEKRAR</AppText>
         <View style={styles.checkSpacer} />
       </View>
 
@@ -61,7 +61,7 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
 
       <Pressable accessibilityRole="button" onPress={onAddSet} style={styles.addSet}>
         <Plus color={colors.accent} size={16} />
-        <AppText style={styles.addSetText}>Add set</AppText>
+        <AppText style={styles.addSetText}>Set ekle</AppText>
       </Pressable>
 
       <ActionSheetModal
@@ -69,12 +69,12 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
         onClose={() => setOptionsVisible(false)}
         options={[
           {
-            label: 'View Progress',
+            label: 'Gelişimi Görüntüle',
             icon: <Eye color={colors.text} size={18} />,
             onPress: () => router.push(`/exercises/${exercise.id}/progress`),
           },
           {
-            label: 'Remove Exercise',
+            label: 'Egzersizi Kaldır',
             icon: <Trash2 color="#ef4444" size={18} />,
             style: 'destructive',
             onPress: () => removeExercise(exercise.id),

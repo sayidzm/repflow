@@ -51,28 +51,28 @@ export default function ExerciseSelectorScreen() {
   return (
     <Screen bottomInset={false}>
       <View style={styles.header}>
-        <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+        <IconButton accessibilityLabel="Geri" onPress={() => router.back()}>
           <ArrowLeft color={colors.text} size={19} />
         </IconButton>
-        <AppText style={styles.title}>Add Exercise</AppText>
+        <AppText style={styles.title}>Egzersiz Ekle</AppText>
         <Pressable
-          accessibilityLabel="Create custom exercise"
+          accessibilityLabel="Özel egzersiz oluştur"
           accessibilityRole="button"
           onPress={() => setCreateModalVisible(true)}
           style={styles.newButton}
         >
           <Plus color={colors.accent} size={16} />
-          <AppText style={styles.newButtonText}>Custom</AppText>
+          <AppText style={styles.newButtonText}>Özel</AppText>
         </Pressable>
       </View>
 
       <FlatList
-        ListEmptyComponent={<EmptyState message="Try another search or create a custom exercise." title="No exercises found" />}
+        ListEmptyComponent={<EmptyState message="Farklı bir arama deneyin veya özel egzersiz oluşturun." title="Egzersiz bulunamadı" />}
         ListHeaderComponent={
           <View style={styles.listHeader}>
             <ExerciseSearchBar onChangeText={setQuery} value={query} />
             <MuscleGroupFilters onSelect={setFilter} selected={filter} />
-            <Label>{filter} EXERCISES</Label>
+            <Label>{filter === 'All' ? 'TÜM' : filter.toUpperCase()} EGZERSİZLER</Label>
           </View>
         }
         contentContainerStyle={[styles.content, { paddingBottom: 92 + insets.bottom }]}
@@ -96,7 +96,7 @@ export default function ExerciseSelectorScreen() {
           style={[styles.confirm, selectedIds.length === 0 && styles.disabled]}
         >
           <AppText style={styles.confirmText}>
-            Add {selectedIds.length || ''} Exercise{selectedIds.length === 1 ? '' : 's'}
+            {selectedIds.length ? `${selectedIds.length} Egzersiz Ekle` : 'Egzersiz Ekle'}
           </AppText>
         </Pressable>
       </View>

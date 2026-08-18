@@ -2,18 +2,18 @@ import { HistoryRepository, formatDuration, formatDateLabel } from '@/database/r
 
 describe('HistoryRepository formatters', () => {
   it('formats duration in seconds to human readable string', () => {
-    expect(formatDuration(0)).toBe('0 min');
-    expect(formatDuration(45)).toBe('0 min');
-    expect(formatDuration(3240)).toBe('54 min');
-    expect(formatDuration(3660)).toBe('1h 1m');
+    expect(formatDuration(0)).toBe('0 dk');
+    expect(formatDuration(45)).toBe('0 dk');
+    expect(formatDuration(3240)).toBe('54 dk');
+    expect(formatDuration(3660)).toBe('1sa 1dk');
   });
 
   it('formats date labels', () => {
     const now = Date.now();
-    expect(formatDateLabel(now)).toBe('TODAY');
+    expect(formatDateLabel(now)).toBe('BUGÜN');
 
     const yesterday = now - 24 * 60 * 60 * 1000;
-    expect(formatDateLabel(yesterday)).toBe('YESTERDAY');
+    expect(formatDateLabel(yesterday)).toBe('DÜN');
   });
 });
 
@@ -51,9 +51,9 @@ describe('HistoryRepository database queries', () => {
     const groups = await repo.getCompletedWorkouts();
 
     expect(groups).toHaveLength(1);
-    expect(groups[0].date).toBe('TODAY');
+    expect(groups[0].date).toBe('BUGÜN');
     expect(groups[0].workouts).toHaveLength(1);
     expect(groups[0].workouts[0].name).toBe('Chest & Triceps');
-    expect(groups[0].workouts[0].detail).toBe('2 exercises · 4 sets');
+    expect(groups[0].workouts[0].detail).toBe('2 egzersiz · 4 set');
   });
 });

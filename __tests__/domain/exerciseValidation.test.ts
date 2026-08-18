@@ -18,7 +18,7 @@ describe('exerciseValidation', () => {
     });
     expect(errors).toHaveLength(1);
     expect(errors[0].field).toBe('name');
-    expect(errors[0].message).toContain('empty');
+    expect(errors[0].message).toContain('boş');
   });
 
   it('fails for name longer than 50 characters', () => {
@@ -29,7 +29,7 @@ describe('exerciseValidation', () => {
     });
     expect(errors).toHaveLength(1);
     expect(errors[0].field).toBe('name');
-    expect(errors[0].message).toContain('50 characters');
+    expect(errors[0].message).toContain('50 karakter');
   });
 
   it('fails for invalid muscle group', () => {

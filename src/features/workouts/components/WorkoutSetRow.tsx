@@ -20,7 +20,7 @@ export function WorkoutSetRow({ index, set, onChange, onToggle }: Props) {
       <AppText style={styles.number}>{index + 1}</AppText>
       <AppText style={styles.previous}>60 × {index === 2 ? 7 : 8}</AppText>
       <TextInput
-        accessibilityLabel={`Set ${index + 1} kilograms`}
+        accessibilityLabel={`Set ${index + 1} kilogram`}
         keyboardType="decimal-pad"
         onChangeText={(value) => onChange('weight', value)}
         selectTextOnFocus
@@ -28,7 +28,7 @@ export function WorkoutSetRow({ index, set, onChange, onToggle }: Props) {
         value={set.weight}
       />
       <TextInput
-        accessibilityLabel={`Set ${index + 1} reps`}
+        accessibilityLabel={`Set ${index + 1} tekrar`}
         keyboardType="number-pad"
         onChangeText={(value) => onChange('reps', value.replace(/[^0-9]/g, ''))}
         selectTextOnFocus
@@ -36,7 +36,7 @@ export function WorkoutSetRow({ index, set, onChange, onToggle }: Props) {
         value={set.reps}
       />
       <Pressable
-        accessibilityLabel={`${set.isCompleted ? 'Mark incomplete' : 'Complete'} set ${index + 1}`}
+        accessibilityLabel={`Set ${index + 1} ${set.isCompleted ? 'tamamlanmadı olarak işaretle' : 'tamamla'}`}
         accessibilityRole="checkbox"
         accessibilityState={{ checked: set.isCompleted }}
         hitSlop={4}

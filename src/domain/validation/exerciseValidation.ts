@@ -10,17 +10,17 @@ export function validateCreateExerciseInput(input: CreateExerciseInput): Validat
   const trimmedName = input.name.trim();
 
   if (!trimmedName) {
-    errors.push({ field: 'name', message: 'Exercise name cannot be empty.' });
+    errors.push({ field: 'name', message: 'Egzersiz adı boş olamaz.' });
   } else if (trimmedName.length > 50) {
-    errors.push({ field: 'name', message: 'Exercise name cannot exceed 50 characters.' });
+    errors.push({ field: 'name', message: 'Egzersiz adı 50 karakteri geçemez.' });
   }
 
   if (!MUSCLE_GROUPS.includes(input.muscleGroup)) {
-    errors.push({ field: 'muscleGroup', message: 'Invalid muscle group selected.' });
+    errors.push({ field: 'muscleGroup', message: 'Geçersiz kas grubu seçildi.' });
   }
 
   if (!EXERCISE_CATEGORIES.includes(input.category)) {
-    errors.push({ field: 'category', message: 'Invalid exercise category selected.' });
+    errors.push({ field: 'category', message: 'Geçersiz egzersiz kategorisi seçildi.' });
   }
 
   return errors;

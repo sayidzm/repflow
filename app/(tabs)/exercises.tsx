@@ -32,19 +32,19 @@ export default function ExercisesScreen() {
   return (
     <Screen bottomInset={false}>
       <FlatList
-        ListEmptyComponent={<EmptyState message="Try another search or create a custom exercise." title="No exercises found" />}
+        ListEmptyComponent={<EmptyState message="Farklı bir arama deneyin veya özel egzersiz oluşturun." title="Egzersiz bulunamadı" />}
         ListHeaderComponent={
           <View style={styles.header}>
             <View style={styles.topRow}>
-              <SectionHeader label="EXERCISE LIBRARY" title="Exercises" />
+              <SectionHeader label="EGZERSİZ KÜTÜPHANESİ" title="Egzersizler" />
               <Pressable
-                accessibilityLabel="Create custom exercise"
+                accessibilityLabel="Özel egzersiz oluştur"
                 accessibilityRole="button"
                 onPress={() => setCreateModalVisible(true)}
                 style={styles.addButton}
               >
                 <Plus color={colors.ink} size={16} />
-                <AppText style={styles.addButtonText}>New</AppText>
+                <AppText style={styles.addButtonText}>Yeni</AppText>
               </Pressable>
             </View>
             <ExerciseSearchBar onChangeText={setQuery} value={query} />
@@ -66,7 +66,7 @@ export default function ExercisesScreen() {
                 <AppText style={styles.name}>{item.name}</AppText>
                 {item.isCustom ? (
                   <View style={styles.customBadge}>
-                    <AppText style={styles.customBadgeText}>Custom</AppText>
+                    <AppText style={styles.customBadgeText}>Özel</AppText>
                   </View>
                 ) : null}
               </View>
@@ -75,7 +75,7 @@ export default function ExercisesScreen() {
               </AppText>
             </Pressable>
             <Pressable
-              accessibilityLabel={`${item.name} options`}
+              accessibilityLabel={`${item.name} seçenekleri`}
               accessibilityRole="button"
               hitSlop={10}
               onPress={() => setSelectedExercise(item)}
@@ -102,12 +102,12 @@ export default function ExercisesScreen() {
           selectedExercise
             ? [
                 {
-                  label: 'View Progress',
+                  label: 'Gelişimi Görüntüle',
                   icon: <Eye color={colors.text} size={18} />,
                   onPress: () => router.push(`/exercises/${selectedExercise.id}/progress`),
                 },
                 {
-                  label: 'Archive Exercise',
+                  label: 'Egzersizi Arşivle',
                   icon: <Archive color="#ef4444" size={18} />,
                   style: 'destructive',
                   onPress: async () => {

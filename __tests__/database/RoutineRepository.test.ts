@@ -141,6 +141,6 @@ describe('RoutineRepository', () => {
     const { db } = createMockSQLiteDatabase();
     const repo = new RoutineRepository(db);
 
-    await expect(repo.create({ name: '   ' })).rejects.toThrow('Routine name cannot be empty');
+    await expect(repo.create({ name: '   ' })).rejects.toThrow('Rutin adı boş olamaz');
   });
 });

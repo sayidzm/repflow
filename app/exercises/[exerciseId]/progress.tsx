@@ -28,11 +28,11 @@ export default function ExerciseProgressScreen() {
       <Screen>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.header}>
-            <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+            <IconButton accessibilityLabel="Geri" onPress={() => router.back()}>
               <ArrowLeft color={colors.text} size={19} />
             </IconButton>
           </View>
-          <EmptyState message="The requested exercise could not be found." title="Exercise not found" />
+          <EmptyState message="İstenen egzersiz bulunamadı." title="Egzersiz bulunamadı" />
         </ScrollView>
       </Screen>
     );
@@ -48,17 +48,17 @@ export default function ExerciseProgressScreen() {
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.header}>
-          <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+          <IconButton accessibilityLabel="Geri" onPress={() => router.back()}>
             <ArrowLeft color={colors.text} size={19} />
           </IconButton>
           <AppText style={styles.brand}>REP</AppText>
-          <IconButton accessibilityLabel="Exercise options" onPress={() => setOptionsVisible(true)}>
+          <IconButton accessibilityLabel="Egzersiz seçenekleri" onPress={() => setOptionsVisible(true)}>
             <Ellipsis color={colors.text} size={19} />
           </IconButton>
         </View>
 
         <View style={styles.titleBlock}>
-          <Label>EXERCISE DETAIL</Label>
+          <Label>EGZERSİZ DETAYI</Label>
           <AppText style={styles.title}>{exercise.name}</AppText>
           <AppText style={styles.meta}>
             {exercise.muscleGroup} · {exercise.category}
@@ -67,18 +67,18 @@ export default function ExerciseProgressScreen() {
 
         <View style={styles.summary}>
           <View style={styles.summaryCell}>
-            <Label>LATEST</Label>
+            <Label>SON SET</Label>
             <AppText style={styles.metric}>{latestStr}</AppText>
           </View>
           <View style={styles.summaryCell}>
-            <Label>HEAVIEST SET</Label>
+            <Label>EN AĞIR SET</Label>
             <AppText style={styles.metric}>{heaviestStr}</AppText>
           </View>
         </View>
 
-        <Label style={styles.historyLabel}>HISTORY</Label>
+        <Label style={styles.historyLabel}>GEÇMİŞ</Label>
         {summary.sessions.length === 0 ? (
-          <EmptyState message="Log workouts with this exercise to see your history here." title="No history recorded" />
+          <EmptyState message="Geçmişinizi burada görmek için bu egzersizle antrenman kaydedin." title="Henüz geçmiş kaydedilmedi" />
         ) : (
           summary.sessions.map((session) => (
             <View key={session.workoutId} style={styles.entry}>
@@ -98,7 +98,7 @@ export default function ExerciseProgressScreen() {
           onClose={() => setOptionsVisible(false)}
           options={[
             {
-              label: 'Archive Exercise',
+              label: 'Egzersizi Arşivle',
               icon: <Archive color="#ef4444" size={18} />,
               style: 'destructive',
               onPress: async () => {
