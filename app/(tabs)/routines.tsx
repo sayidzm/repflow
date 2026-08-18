@@ -5,6 +5,7 @@ import { Pressable, ScrollView } from 'react-native';
 import { createStyles } from '@/utils/createStyles';
 
 import { AppText } from '@/components/ui/AppText';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { RoutineCard } from '@/features/routines/components/RoutineCard';
@@ -25,7 +26,13 @@ export default function RoutinesScreen() {
           label="YOUR LIBRARY"
           title="Routines"
         />
-        {referenceRoutines.map((routine) => <RoutineCard {...routine} key={routine.id} onStart={() => router.push('/workout/active')} />)}
+        {referenceRoutines.length === 0 ? (
+          <EmptyState message="You haven't created any routines yet." title="No routines yet" />
+        ) : (
+          referenceRoutines.map((routine) => (
+            <RoutineCard {...routine} key={routine.id} onStart={() => router.push('/workout/active')} />
+          ))
+        )}
       </ScrollView>
     </Screen>
   );

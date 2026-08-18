@@ -4,6 +4,24 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Options Modal & Mock Data Cleanup
+
+### Tamamlanan iş
+
+- `src/components/ui/ActionSheetModal.tsx` erişilebilir seçenek modal bileşeni oluşturuldu.
+- `ExerciseCard.tsx`, `app/workout/active.tsx`, `app/exercises/[exerciseId]/progress.tsx` ve `app/(tabs)/exercises.tsx` üzerindeki tüm üç nokta (`...`) butonları işlevsel ActionSheetModal'a bağlandı.
+- Egzersiz kartlarından egzersiz silme (`removeExercise`), antrenmanı sıfırlama (`clearDraft`), egzersiz arşivleme (`archiveExercise`) ve detay görüntüleme eylemleri aktifleştirildi.
+- Egzersizler (seed verisi / veritabanı egzersizleri) dışındaki sahte mock veriler (`referenceWorkout`, `referenceRoutines`, `referenceHistory` ve sahte progress geçmişi) kaldırıldı.
+- Verisiz ekran durumları için `EmptyState` bileşenleri bağlandı.
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (7 suites, 34 tests)
+- `npx expo-doctor`: Passed (21/21 checks)
+- `npx expo export --platform web`: Passed
+
 ## 2026-08-18 — Phase 2 (Exercise System & Persistence)
 
 ### Tamamlanan iş

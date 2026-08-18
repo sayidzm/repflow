@@ -1,10 +1,11 @@
-import { ChevronRight, Plus } from 'lucide-react-native';
+import { Archive, Ellipsis, Eye, Plus } from 'lucide-react-native';
 import { router } from 'expo-router';
 import { useDeferredValue, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 
 import { createStyles } from '@/utils/createStyles';
 
+import { ActionSheetModal } from '@/components/ui/ActionSheetModal';
 import { AppText } from '@/components/ui/AppText';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Screen } from '@/components/ui/Screen';
@@ -13,15 +14,17 @@ import { CreateExerciseModal } from '@/features/exercises/components/CreateExerc
 import { ExerciseSearchBar } from '@/features/exercises/components/ExerciseSearchBar';
 import { MuscleGroupFilters, type MuscleFilter } from '@/features/exercises/components/MuscleGroupFilters';
 import { useExercises } from '@/features/exercises/hooks/useExercises';
+import type { Exercise } from '@/domain/models';
 import { colors, radius, spacing, typography } from '@/theme';
 
 export default function ExercisesScreen() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<MuscleFilter>('All');
   const [createModalVisible, setCreateModalVisible] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
 
   const deferredQuery = useDeferredValue(query);
-  const { exercises, createCustomExercise } = useExercises({
+  const { exercises, createCustomExercise, archiveExercise } = useExercises({
     muscleGroup: filter,
     searchQuery: deferredQuery,
   });
@@ -53,12 +56,12 @@ export default function ExercisesScreen() {
         keyExtractor={(item) => item.id}
         keyboardShouldPersistTaps="handled"
         renderItem={({ item }) => (
-          <Pressable
-            accessibilityRole="button"
-            onPress={() => router.push(`/exercises/${item.id}/progress`)}
-            style={styles.row}
-          >
-            <View style={styles.copy}>
+          <View style={styles.row}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => router.push(`/exercises/${item.id}/progress`)}
+              style={styles.copy}
+            >
               <View style={styles.titleRow}>
                 <AppText style={styles.name}>{item.name}</AppText>
                 {item.isCustom ? (
@@ -70,9 +73,17 @@ export default function ExercisesScreen() {
               <AppText style={styles.meta}>
                 {item.muscleGroup} · {item.category}
               </AppText>
-            </View>
-            <ChevronRight color={colors.muted} size={18} />
-          </Pressable>
+            </Pressable>
+            <Pressable
+              accessibilityLabel={`${item.name} options`}
+              accessibilityRole="button"
+              hitSlop={10}
+              onPress={() => setSelectedExercise(item)}
+              style={styles.optionsButton}
+            >
+              <Ellipsis color={colors.muted} size={20} />
+            </Pressable>
+          </View>
         )}
       />
 
@@ -82,6 +93,32 @@ export default function ExercisesScreen() {
           await createCustomExercise(data);
         }}
         visible={createModalVisible}
+      />
+
+      <ActionSheetModal
+        description={selectedExercise ? `${selectedExercise.muscleGroup} · ${selectedExercise.category}` : undefined}
+        onClose={() => setSelectedExercise(null)}
+        options={
+          selectedExercise
+            ? [
+                {
+                  label: 'View Progress',
+                  icon: <Eye color={colors.text} size={18} />,
+                  onPress: () => router.push(`/exercises/${selectedExercise.id}/progress`),
+                },
+                {
+                  label: 'Archive Exercise',
+                  icon: <Archive color="#ef4444" size={18} />,
+                  style: 'destructive',
+                  onPress: async () => {
+                    await archiveExercise(selectedExercise.id);
+                  },
+                },
+              ]
+            : []
+        }
+        title={selectedExercise?.name}
+        visible={selectedExercise !== null}
       />
     </Screen>
   );
@@ -94,10 +131,11 @@ const styles = createStyles({
   addButton: { alignItems: 'center', backgroundColor: colors.accent, borderRadius: radius.pill, flexDirection: 'row', gap: 4, minHeight: 36, paddingHorizontal: spacing.md },
   addButtonText: { color: colors.ink, fontFamily: typography.bold, fontSize: 13 },
   row: { alignItems: 'center', borderBottomColor: colors.line, borderBottomWidth: 1, flexDirection: 'row', minHeight: 72 },
-  copy: { flex: 1 },
+  copy: { flex: 1, paddingRight: spacing.sm, paddingVertical: spacing.sm },
   titleRow: { alignItems: 'center', flexDirection: 'row', gap: spacing.xs },
   name: { fontFamily: typography.bold, fontSize: 15 },
   customBadge: { backgroundColor: colors.panel, borderColor: colors.line, borderRadius: radius.sm, borderWidth: 1, paddingHorizontal: 6, paddingVertical: 2 },
   customBadgeText: { color: colors.accent, fontFamily: typography.semibold, fontSize: 10 },
   meta: { color: colors.muted, fontFamily: typography.regular, fontSize: 12, marginTop: 4 },
+  optionsButton: { alignItems: 'center', height: 44, justifyContent: 'center', width: 44 },
 });

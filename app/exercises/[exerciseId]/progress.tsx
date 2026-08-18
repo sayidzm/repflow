@@ -1,33 +1,116 @@
-import { ArrowLeft, Ellipsis } from 'lucide-react-native';
+import { ArrowLeft, Archive, Ellipsis } from 'lucide-react-native';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { createStyles } from '@/utils/createStyles';
 
+import { ActionSheetModal } from '@/components/ui/ActionSheetModal';
 import { AppText } from '@/components/ui/AppText';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { IconButton } from '@/components/ui/IconButton';
 import { Label } from '@/components/ui/Label';
 import { Screen } from '@/components/ui/Screen';
-import { referenceExercises } from '@/features/exercises/data/referenceExercises';
+import { useExercises } from '@/features/exercises/hooks/useExercises';
 import { colors, radius, spacing, typography } from '@/theme';
-
-const history = [
-  { date: 'Aug 18', sets: ['62.5 kg × 8', '62.5 kg × 8', '62.5 kg × 7'] },
-  { date: 'Aug 15', sets: ['60 kg × 8', '60 kg × 8', '60 kg × 7'] },
-  { date: 'Aug 11', sets: ['57.5 kg × 10', '57.5 kg × 9', '57.5 kg × 8'] },
-];
 
 export default function ExerciseProgressScreen() {
   const { exerciseId } = useLocalSearchParams<{ exerciseId: string }>();
-  const exercise = referenceExercises.find((item) => item.id === exerciseId) ?? referenceExercises[0];
+  const { exercises, archiveExercise } = useExercises({ includeArchived: true });
+  const [optionsVisible, setOptionsVisible] = useState(false);
+
+  const exercise = exercises.find((item) => item.id === exerciseId);
+  const history: { date: string; sets: string[] }[] = []; // Empty history (no mock data)
+
+  if (!exercise) {
+    return (
+      <Screen>
+        <ScrollView contentContainerStyle={styles.content}>
+          <View style={styles.header}>
+            <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+              <ArrowLeft color={colors.text} size={19} />
+            </IconButton>
+          </View>
+          <EmptyState message="The requested exercise could not be found." title="Exercise not found" />
+        </ScrollView>
+      </Screen>
+    );
+  }
+
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.header}><IconButton accessibilityLabel="Back" onPress={() => router.back()}><ArrowLeft color={colors.text} size={19} /></IconButton><AppText style={styles.brand}>REP</AppText><IconButton accessibilityLabel="Exercise options"><Ellipsis color={colors.text} size={19} /></IconButton></View>
-        <View style={styles.titleBlock}><Label>EXERCISE DETAIL</Label><AppText style={styles.title}>{exercise.name}</AppText><AppText style={styles.meta}>{exercise.muscleGroup} · {exercise.category}</AppText></View>
-        <View style={styles.summary}><View style={styles.summaryCell}><Label>LATEST</Label><AppText style={styles.metric}>62.5 <AppText style={styles.unit}>kg × 8</AppText></AppText></View><View style={styles.summaryCell}><Label>HEAVIEST SET</Label><AppText style={styles.metric}>65 <AppText style={styles.unit}>kg</AppText></AppText></View></View>
+        <View style={styles.header}>
+          <IconButton accessibilityLabel="Back" onPress={() => router.back()}>
+            <ArrowLeft color={colors.text} size={19} />
+          </IconButton>
+          <AppText style={styles.brand}>REP</AppText>
+          <IconButton accessibilityLabel="Exercise options" onPress={() => setOptionsVisible(true)}>
+            <Ellipsis color={colors.text} size={19} />
+          </IconButton>
+        </View>
+
+        <View style={styles.titleBlock}>
+          <Label>EXERCISE DETAIL</Label>
+          <AppText style={styles.title}>{exercise.name}</AppText>
+          <AppText style={styles.meta}>
+            {exercise.muscleGroup} · {exercise.category}
+          </AppText>
+        </View>
+
+        <View style={styles.summary}>
+          <View style={styles.summaryCell}>
+            <Label>LATEST</Label>
+            <AppText style={styles.metric}>
+              - <AppText style={styles.unit}>kg × -</AppText>
+            </AppText>
+          </View>
+          <View style={styles.summaryCell}>
+            <Label>HEAVIEST SET</Label>
+            <AppText style={styles.metric}>
+              - <AppText style={styles.unit}>kg</AppText>
+            </AppText>
+          </View>
+        </View>
+
         <Label style={styles.historyLabel}>HISTORY</Label>
-        {history.map((session) => <View key={session.date} style={styles.entry}><AppText style={styles.date}>{session.date}</AppText><View style={styles.sets}>{session.sets.map((set, index) => <AppText key={`${session.date}-${index}`} style={styles.set}>{set}</AppText>)}</View></View>)}
+        {history.length === 0 ? (
+          <EmptyState message="Log workouts with this exercise to see your history here." title="No history recorded" />
+        ) : (
+          history.map((session) => (
+            <View key={session.date} style={styles.entry}>
+              <AppText style={styles.date}>{session.date}</AppText>
+              <View style={styles.sets}>
+                {session.sets.map((set, index) => (
+                  <AppText key={`${session.date}-${index}`} style={styles.set}>
+                    {set}
+                  </AppText>
+                ))}
+              </View>
+            </View>
+          ))
+        )}
+
+        <ActionSheetModal
+          onClose={() => setOptionsVisible(false)}
+          options={[
+            {
+              label: 'Archive Exercise',
+              icon: <Archive color="#ef4444" size={18} />,
+              style: 'destructive',
+              onPress: async () => {
+                try {
+                  await archiveExercise(exercise.id);
+                } catch {
+                  // handle errors silently
+                }
+                router.back();
+              },
+            },
+          ]}
+          title={exercise.name}
+          visible={optionsVisible}
+        />
       </ScrollView>
     </Screen>
   );

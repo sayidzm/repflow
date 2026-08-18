@@ -1,10 +1,14 @@
-import { Ellipsis, Plus } from 'lucide-react-native';
+import { Ellipsis, Eye, Plus, Trash2 } from 'lucide-react-native';
+import { router } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { createStyles } from '@/utils/createStyles';
 
+import { ActionSheetModal } from '@/components/ui/ActionSheetModal';
 import { AppText } from '@/components/ui/AppText';
 import type { WorkoutExercise } from '@/domain/models';
+import { useWorkoutDraft } from '@/providers/WorkoutDraftProvider';
 import { colors, radius, spacing, typography } from '@/theme';
 import { WorkoutSetRow } from './WorkoutSetRow';
 
@@ -16,6 +20,9 @@ type Props = {
 };
 
 export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: Props) {
+  const [optionsVisible, setOptionsVisible] = useState(false);
+  const { removeExercise } = useWorkoutDraft();
+
   return (
     <View style={styles.card}>
       <View style={styles.heading}>
@@ -23,11 +30,17 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
           <AppText numberOfLines={2} style={styles.title}>{exercise.name}</AppText>
           <AppText style={styles.meta}>{exercise.muscleGroup} · {exercise.category}</AppText>
         </View>
-        <Pressable accessibilityLabel={`${exercise.name} options`} accessibilityRole="button" hitSlop={10} style={styles.options}>
-          <Ellipsis color={colors.muted} size={20} />
+        <Pressable
+          accessibilityLabel={`${exercise.name} options`}
+          accessibilityRole="button"
+          hitSlop={10}
+          onPress={() => setOptionsVisible(true)}
+          style={styles.options}
+        >
+          <Ellipsis color={colors.text} size={20} />
         </Pressable>
       </View>
-      <AppText style={styles.last}>Last: <AppText style={styles.lastValue}>60 kg × 8</AppText></AppText>
+
       <View style={styles.labels}>
         <AppText style={[styles.label, styles.setLabel]}>SET</AppText>
         <AppText style={[styles.label, styles.previousLabel]}>PREVIOUS</AppText>
@@ -35,6 +48,7 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
         <AppText style={styles.label}>REPS</AppText>
         <View style={styles.checkSpacer} />
       </View>
+
       {exercise.sets.map((set: WorkoutExercise['sets'][number], index: number) => (
         <WorkoutSetRow
           index={index}
@@ -44,10 +58,31 @@ export function ExerciseCard({ exercise, onAddSet, onChangeSet, onToggleSet }: P
           set={set}
         />
       ))}
+
       <Pressable accessibilityRole="button" onPress={onAddSet} style={styles.addSet}>
         <Plus color={colors.accent} size={16} />
         <AppText style={styles.addSetText}>Add set</AppText>
       </Pressable>
+
+      <ActionSheetModal
+        description={`${exercise.muscleGroup} · ${exercise.category}`}
+        onClose={() => setOptionsVisible(false)}
+        options={[
+          {
+            label: 'View Progress',
+            icon: <Eye color={colors.text} size={18} />,
+            onPress: () => router.push(`/exercises/${exercise.id}/progress`),
+          },
+          {
+            label: 'Remove Exercise',
+            icon: <Trash2 color="#ef4444" size={18} />,
+            style: 'destructive',
+            onPress: () => removeExercise(exercise.id),
+          },
+        ]}
+        title={exercise.name}
+        visible={optionsVisible}
+      />
     </View>
   );
 }
@@ -59,8 +94,6 @@ const styles = createStyles({
   title: { fontFamily: typography.bold, fontSize: 19, letterSpacing: -0.4 },
   meta: { color: colors.muted, fontFamily: typography.regular, fontSize: 12, marginTop: 3 },
   options: { alignItems: 'center', height: 44, justifyContent: 'center', marginRight: -10, marginTop: -10, width: 44 },
-  last: { color: colors.muted, fontFamily: typography.regular, fontSize: 11, marginTop: spacing.md },
-  lastValue: { color: colors.text, fontFamily: typography.semibold },
   labels: { alignItems: 'center', flexDirection: 'row', gap: spacing.xs, marginTop: spacing.md, paddingHorizontal: 4 },
   label: { color: colors.muted, flex: 1, fontFamily: typography.mono, fontSize: 8, textAlign: 'center' },
   setLabel: { flex: 0, width: 20 },

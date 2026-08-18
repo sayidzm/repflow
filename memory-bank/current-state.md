@@ -1,27 +1,25 @@
 # Current State
 
 > Son güncelleme: 2026-08-18  
-> Aktif faz: Phase 2 (Exercise System & Persistence) Completed  
-> Genel durum: Exercise domain models, repository, database seed, custom exercise creation modal, hooks, UI integration and all unit/integration tests passed.
+> Aktif faz: Phase 2 (Exercise System & Persistence) Completed + Options Modal & Mock Data Cleanup  
+> Genel durum: Exercise domain models, repository, database seed, custom exercise creation modal, options action sheet for ellipsis buttons, mock workout/routine/history data cleanup and all unit/integration tests passed.
 
 ## 1. Tamamlananlar
 
-- **Phase 1 Foundation & Fixes:**
-  - Proje belgeleri köke taşındı ve bağlayıcı kurallar doğrulandı.
-  - React Native 0.86.2 + Expo SDK 57 + Expo Router v57 + TypeScript strict mode projesi uyumlu sürümlerle yapılandırıldı.
-  - Metro web bundler `./rn-get-polyfills` ve `.wasm` asset sorunları çözüldü.
-- **Phase 2 Exercise System & Persistence:**
-  - Kas grubu (`MuscleGroup`) ve Kategori (`ExerciseCategory`) domain tipleri ile doğrulama kuralları (`exerciseValidation.ts`) yazıldı.
-  - Seed egzersiz altyapısı (`exercisesSeed.ts`) oluşturuldu ve `initializeDatabase` migration runner'ına entegre edildi (17 varsayılan egzersiz).
-  - SQLite tabanlı `ExerciseRepository` katmanı yazıldı (`getAll`, `getById`, `getByName`, `create`, `update`, `archive`, `unarchive`).
-  - Özel egzersiz ekleme modal'ı (`CreateExerciseModal.tsx`) oluşturuldu.
-  - `useExercises` hook'u SQLite ve fallback modları destekleyecek şekilde yazıldı.
-  - `app/exercises/select.tsx` ve `app/(tabs)/exercises.tsx` ekranları `useExercises` hook'u ve `CreateExerciseModal` ile bağlandı.
-  - `exerciseValidation`, `ExerciseRepository`, `initializeDatabase` ve `CreateExerciseModal` testleri eklendi (7 test suite, 34 test %100 PASSED).
+- **Options (Üç Nokta) Butonları Entegrasyonu:**
+  - `src/components/ui/ActionSheetModal.tsx` erişilebilir ve şık seçenek modal'ı oluşturuldu.
+  - `ExerciseCard.tsx` içindeki üç nokta butonuna basıldığında "View Progress" ve "Remove Exercise" seçenekleri eklendi.
+  - `app/workout/active.tsx` üst barındaki üç nokta butonuna "Add Exercise" ve "Discard Workout" seçenekleri eklendi.
+  - `app/exercises/[exerciseId]/progress.tsx` üst barındaki üç nokta butonuna "Archive Exercise" seçeneği eklendi.
+  - `app/(tabs)/exercises.tsx` kütüphane listesindeki her egzersiz satırına seçenek (üç nokta) butonu eklendi ("View Progress", "Archive Exercise").
+- **Mock Veri Temizliği (Egzersizler Hariç):**
+  - Hazır egzersiz seed verileri ve kütüphane egzersizleri KORUNDU.
+  - `referenceWorkout`, `referenceRoutines` ve `referenceHistory` mock dizileri boşaltıldı (`[]`).
+  - `ExerciseProgressScreen` içindeki sahte set geçmişi temizlendi; verisiz durumlarda `EmptyState` bileşenleri bağlandı.
 - **Doğrulamalar:**
   - `pnpm typecheck`: PASSED (0 hata)
   - `pnpm lint`: PASSED (0 hata, 0 uyarı)
-  - `pnpm test`: PASSED (7 test suite, 34 test)
+  - `pnpm test`: PASSED (7 test suite, 34 test %100 PASSED)
   - `npx expo-doctor`: PASSED (21/21)
   - `npx expo export --platform web`: PASSED
 

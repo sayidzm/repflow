@@ -6,7 +6,7 @@ import { createStyles } from '@/utils/createStyles';
 import { AppText } from '@/components/ui/AppText';
 import { colors, radius, spacing, typography } from '@/theme';
 
-type Props = { name: string; detail: string; duration: string; onPress: () => void };
+type Props = { name: string; detail?: string; duration: string; onPress: () => void };
 
 export function HistoryWorkoutRow({ name, detail, duration, onPress }: Props) {
   return (

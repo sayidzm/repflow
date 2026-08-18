@@ -17,34 +17,74 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.header}>
           <View>
-            <View style={styles.brand}><Flame color={colors.accent} fill={colors.accent} size={18} /><AppText style={styles.brandText}>REP</AppText></View>
-            <Label>MONDAY, AUG 18</Label>
+            <View style={styles.brand}>
+              <Flame color={colors.accent} fill={colors.accent} size={18} />
+              <AppText style={styles.brandText}>REP</AppText>
+            </View>
+            <Label>TODAY</Label>
           </View>
-          <IconButton accessibilityLabel="Settings"><Settings2 color={colors.text} size={18} /></IconButton>
+          <IconButton accessibilityLabel="Settings">
+            <Settings2 color={colors.text} size={18} />
+          </IconButton>
         </View>
+
         <View style={styles.intro}>
           <AppText style={styles.headline}>Ready when{`\n`}you are.</AppText>
           <AppText style={styles.subtitle}>Your training log, always on this device.</AppText>
         </View>
+
         <Pressable accessibilityRole="button" onPress={() => router.push('/workout/active')} style={styles.start}>
           <View>
             <AppText style={styles.startTitle}>Start Workout</AppText>
             <AppText style={styles.startSubtitle}>Log a session from scratch</AppText>
           </View>
-          <View style={styles.play}><Play color={colors.ink} fill={colors.ink} size={17} /></View>
+          <View style={styles.play}>
+            <Play color={colors.ink} fill={colors.ink} size={17} />
+          </View>
         </Pressable>
+
         <Label style={styles.sectionLabel}>QUICK START</Label>
         <View style={styles.quickRow}>
-          <Pressable accessibilityRole="button" onPress={() => router.push('/workout/active')} style={styles.quick}><Plus color={colors.accent} size={18} /><AppText style={styles.quickText}>Empty{`\n`}Workout</AppText></Pressable>
-          <Pressable accessibilityRole="button" onPress={() => router.push('/routines')} style={styles.quick}><ListChecks color={colors.accent} size={18} /><AppText style={styles.quickText}>Select{`\n`}Routine</AppText></Pressable>
-        </View>
-        <View style={styles.routinesHeading}><Label>YOUR ROUTINES</Label><Pressable accessibilityRole="button" onPress={() => router.push('/routines')}><AppText style={styles.link}>See all</AppText></Pressable></View>
-        {referenceRoutines.map((routine) => (
-          <Pressable accessibilityLabel={`Open ${routine.name}`} accessibilityRole="button" key={routine.id} onPress={() => router.push('/routines')} style={styles.routineRow}>
-            <View style={styles.bullet} />
-            <View style={styles.routineCopy}><AppText style={styles.routineName}>{routine.name}</AppText><AppText style={styles.routineMeta}>{routine.exercises.length + 2} exercises · Last {routine.last}</AppText></View>
+          <Pressable accessibilityRole="button" onPress={() => router.push('/workout/active')} style={styles.quick}>
+            <Plus color={colors.accent} size={18} />
+            <AppText style={styles.quickText}>Empty{`\n`}Workout</AppText>
           </Pressable>
-        ))}
+          <Pressable accessibilityRole="button" onPress={() => router.push('/routines')} style={styles.quick}>
+            <ListChecks color={colors.accent} size={18} />
+            <AppText style={styles.quickText}>Select{`\n`}Routine</AppText>
+          </Pressable>
+        </View>
+
+        <View style={styles.routinesHeading}>
+          <Label>YOUR ROUTINES</Label>
+          <Pressable accessibilityRole="button" onPress={() => router.push('/routines')}>
+            <AppText style={styles.link}>See all</AppText>
+          </Pressable>
+        </View>
+
+        {referenceRoutines.length === 0 ? (
+          <View style={styles.emptyRoutines}>
+            <AppText style={styles.emptyRoutinesText}>No routines created yet.</AppText>
+          </View>
+        ) : (
+          referenceRoutines.map((routine) => (
+            <Pressable
+              accessibilityLabel={`Open ${routine.name}`}
+              accessibilityRole="button"
+              key={routine.id}
+              onPress={() => router.push('/routines')}
+              style={styles.routineRow}
+            >
+              <View style={styles.bullet} />
+              <View style={styles.routineCopy}>
+                <AppText style={styles.routineName}>{routine.name}</AppText>
+                <AppText style={styles.routineMeta}>
+                  {routine.exercises.length} exercises · Last {routine.last}
+                </AppText>
+              </View>
+            </Pressable>
+          ))
+        )}
       </ScrollView>
     </Screen>
   );
@@ -73,4 +113,6 @@ const styles = createStyles({
   routineCopy: { flex: 1 },
   routineName: { fontFamily: typography.bold, fontSize: 14 },
   routineMeta: { color: colors.muted, fontFamily: typography.regular, fontSize: 10, marginTop: 3 },
+  emptyRoutines: { paddingVertical: spacing.md },
+  emptyRoutinesText: { color: colors.muted, fontFamily: typography.regular, fontSize: 13 },
 });
