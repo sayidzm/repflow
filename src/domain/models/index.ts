@@ -2,6 +2,7 @@ import type { Exercise } from './exercise';
 
 export * from './exercise';
 export * from './workout';
+export * from './routine';
 
 export type WorkoutSet = {
   id: string;

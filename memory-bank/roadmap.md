@@ -68,14 +68,14 @@ Durum: Completed
 
 ## Phase 4 — Routines
 
-Durum: Planned
+Durum: Completed
 
-- [ ] Routine listesi
-- [ ] Routine oluşturma/düzenleme/silme
-- [ ] Egzersiz ekleme/çıkarma/sıralama
-- [ ] Routine'den workout üretme
-- [ ] Arşivli egzersiz durumu
-- [ ] Testler
+- [x] Routine listesi
+- [x] Routine oluşturma/düzenleme/silme
+- [x] Egzersiz ekleme/çıkarma/sıralama
+- [x] Routine'den workout üretme
+- [x] Arşivli egzersiz durumu
+- [x] Testler
 
 Çıkış kriteri: Routine, doğru egzersiz sırası ve snapshot'larla yeni workout oluşturur.
 

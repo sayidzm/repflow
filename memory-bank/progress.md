@@ -4,6 +4,25 @@
 
 Bu dosya tamamlanan çalışmaların tarihsel kaydını tutar. Planlanan iş tamamlanmış gibi yazılmaz. Yeni kayıtlar en üste eklenir.
 
+## 2026-08-18 — Phase 4 (Routines System & Persistence)
+
+### Tamamlanan iş
+
+- `src/domain/models/routine.ts` altında `Routine`, `RoutineExerciseRecord`, `CreateRoutineInput`, `UpdateRoutineInput` tipleri tanımlandı.
+- `src/domain/validation/routineValidation.ts` ile rutin ismi doğrulama kuralları (boş kalmama, maksimum 50 karakter sınırı) eklendi.
+- `src/database/repositories/RoutineRepository.ts` oluşturuldu (`getAll`, `getById`, `create`, `update`, `delete`). Egzersiz detayları JOIN edilerek rutinlerin en son uygulanma zamanları (`lastPerformed`) hesaplandı.
+- `WorkoutDraftProvider` bileşenine `startWorkoutFromRoutine` metodu eklendi. Tek dokunuşla rutindeki egzersiz sıralaması ile otomatik aktif antrenman başlatma akışı kuruldu.
+- `src/features/routines/hooks/useRoutines.ts` hook'u ve `CreateRoutineModal.tsx` arayüzü yazıldı.
+- `app/(tabs)/routines.tsx` ve `app/(tabs)/index.tsx` ekranları gerçek SQLite rutin veri akışına ve modal editörüne bağlandı.
+- Unit ve repository testleri eklendi (`routineValidation.test.ts`, `RoutineRepository.test.ts`).
+
+### Doğrulama
+
+- `pnpm typecheck`: Passed (0 errors)
+- `pnpm lint`: Passed (0 errors, 0 warnings)
+- `pnpm test`: Passed (11 suites, 56 tests %100 PASSED)
+- `npx expo-doctor`: Passed (21/21 checks)
+
 ## 2026-08-18 — Phase 3 (Active Workout Core & Persistence)
 
 ### Tamamlanan iş

@@ -3,6 +3,7 @@ import { createContext, type PropsWithChildren, useCallback, useContext, useEffe
 
 import type { Exercise } from '@/domain/models/exercise';
 import type { WorkoutExercise } from '@/domain/models';
+import type { Routine } from '@/domain/models/routine';
 import type { Workout, WorkoutExerciseRecord, WorkoutSetRecord } from '@/domain/models/workout';
 import { WorkoutRepository } from '@/database/repositories/WorkoutRepository';
 
@@ -13,6 +14,7 @@ type WorkoutDraftContextValue = {
   isLoading: boolean;
   error: string | null;
   startWorkout: (name?: string, routineId?: string) => Promise<Workout>;
+  startWorkoutFromRoutine: (routine: Routine) => Promise<Workout>;
   addExercise: (exercise: Exercise) => Promise<void>;
   removeExercise: (workoutExerciseId: string) => Promise<void>;
   addSet: (workoutExerciseId: string) => Promise<void>;
@@ -140,6 +142,57 @@ export function WorkoutDraftProvider({ children }: PropsWithChildren) {
       }
       setActiveWorkout(existing);
       return existing;
+    },
+    [repository],
+  );
+
+  const startWorkoutFromRoutine = useCallback(
+    async (routine: Routine): Promise<Workout> => {
+      if (!repository) {
+        const dummy: Workout = {
+          id: `w_inmem_${Date.now()}`,
+          routineId: routine.id,
+          name: routine.name,
+          status: 'active',
+          startedAt: Date.now(),
+          endedAt: null,
+          durationSeconds: null,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          exercises: [],
+        };
+        setActiveWorkout(dummy);
+        setInMemoryExercises(
+          routine.exercises.map((re) => ({
+            id: re.id,
+            exerciseId: re.exerciseId,
+            name: re.exerciseName || 'Exercise',
+            muscleGroup: (re.muscleGroup as any) || 'Other',
+            category: (re.category as any) || 'Barbell',
+            isCustom: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            archivedAt: null,
+            sets: [{ id: `ws_${Date.now()}_${re.id}`, weight: '', reps: '', isCompleted: false }],
+          })),
+        );
+        return dummy;
+      }
+
+      let active = await repository.getActiveWorkout();
+      if (!active) {
+        active = await repository.createActiveWorkout({ name: routine.name, routineId: routine.id });
+      }
+
+      for (const re of routine.exercises) {
+        if (re.exercise) {
+          await repository.addExerciseToActiveWorkout(active.id, re.exercise);
+        }
+      }
+
+      const updated = await repository.getActiveWorkout();
+      setActiveWorkout(updated);
+      return updated!;
     },
     [repository],
   );
@@ -353,6 +406,7 @@ export function WorkoutDraftProvider({ children }: PropsWithChildren) {
         isLoading,
         error,
         startWorkout,
+        startWorkoutFromRoutine,
         addExercise,
         removeExercise,
         addSet,

@@ -8,17 +8,24 @@ import { AppText } from '@/components/ui/AppText';
 import { IconButton } from '@/components/ui/IconButton';
 import { Label } from '@/components/ui/Label';
 import { Screen } from '@/components/ui/Screen';
-import { referenceRoutines } from '@/features/routines/data/referenceRoutines';
+import type { Routine } from '@/domain/models/routine';
+import { useRoutines } from '@/features/routines/hooks/useRoutines';
 import { useWorkoutDraft } from '@/providers/WorkoutDraftProvider';
 import { colors, radius, spacing, typography } from '@/theme';
 
 export default function HomeScreen() {
-  const { hasActiveWorkout, activeWorkout, startWorkout } = useWorkoutDraft();
+  const { hasActiveWorkout, activeWorkout, startWorkout, startWorkoutFromRoutine } = useWorkoutDraft();
+  const { routines } = useRoutines();
 
   const handleStartEmptyWorkout = async () => {
     if (!hasActiveWorkout) {
       await startWorkout();
     }
+    router.push('/workout/active');
+  };
+
+  const handleStartRoutine = async (routine: Routine) => {
+    await startWorkoutFromRoutine(routine);
     router.push('/workout/active');
   };
 
@@ -90,24 +97,24 @@ export default function HomeScreen() {
           </Pressable>
         </View>
 
-        {referenceRoutines.length === 0 ? (
+        {routines.length === 0 ? (
           <View style={styles.emptyRoutines}>
             <AppText style={styles.emptyRoutinesText}>No routines created yet.</AppText>
           </View>
         ) : (
-          referenceRoutines.map((routine) => (
+          routines.map((routine) => (
             <Pressable
               accessibilityLabel={`Open ${routine.name}`}
               accessibilityRole="button"
               key={routine.id}
-              onPress={() => router.push('/routines')}
+              onPress={() => handleStartRoutine(routine)}
               style={styles.routineRow}
             >
               <View style={styles.bullet} />
               <View style={styles.routineCopy}>
                 <AppText style={styles.routineName}>{routine.name}</AppText>
                 <AppText style={styles.routineMeta}>
-                  {routine.exercises.length} exercises · Last {routine.last}
+                  {routine.exercises.length} exercises · Last {routine.lastPerformed || 'Never'}
                 </AppText>
               </View>
             </Pressable>
